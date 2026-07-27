@@ -22,9 +22,9 @@
     --card:#FFFFFF;
     --muted:#6E6B62;
     --line:#121212;
-    /* ✅ 브랜드 심층(3C+4P) 전용 컬러 */
-    --sky:#C8EEFF;
-    --sky-deep:#1A6FA0;
+    /* ✅ 2번 이미지 참고: 올리브영 핑크 컬러로 교체 */
+    --pink:#FFD6EC;
+    --pink-deep:#E8399A;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -112,21 +112,22 @@
   .legend-card{ border:2px solid var(--ink); border-radius:10px; padding:18px 20px; }
   .legend-card.a{ background:var(--lime); color:var(--ink); }
   .legend-card.b{ background:var(--ink); color:var(--paper); }
-  /* ✅ 브랜드 심층 카드 */
-  .legend-card.c{ background:var(--sky); color:var(--ink); }
+  /* ✅ 핑크로 교체 */
+  .legend-card.c{ background:var(--pink); color:var(--ink); }
   .legend-card .tag{
     display:inline-block; font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:700;
     padding:3px 10px; border-radius:5px; margin-bottom:12px; letter-spacing:.03em;
   }
   .legend-card.a .tag{ background:var(--ink); color:var(--lime); }
   .legend-card.b .tag{ background:var(--lime); color:var(--ink); }
-  .legend-card.c .tag{ background:var(--sky-deep); color:#fff; }
+  /* ✅ 핑크 태그 */
+  .legend-card.c .tag{ background:var(--pink-deep); color:#fff; }
   .legend-card ul{margin:0; padding-left:0; list-style:none; font-size:13.5px; line-height:1.95;}
   .legend-card b{font-weight:700;}
-  /* ✅ 3C→4P 구분 화살표 라벨 */
+  /* ✅ 핑크 구분 라벨 */
   .legend-card .divider-label{
     font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700;
-    color:var(--sky-deep); letter-spacing:.05em; margin:10px 0 6px; display:block;
+    color:var(--pink-deep); letter-spacing:.05em; margin:10px 0 6px; display:block;
   }
 
   /* ---------- filter bar ---------- */
@@ -138,9 +139,9 @@
   }
   .filter-btn:hover{ background:var(--lime); }
   .filter-btn.active{ background:var(--ink); color:var(--lime); border-color:var(--ink); }
-  /* ✅ 브랜드 심층 필터 전용 색상 */
-  .filter-btn[data-filter="brand3c"]:hover{ background:var(--sky); }
-  .filter-btn[data-filter="brand3c"].active{ background:var(--sky-deep); color:#fff; border-color:var(--sky-deep); }
+  /* ✅ 핑크 필터 */
+  .filter-btn[data-filter="brand3c"]:hover{ background:var(--pink); }
+  .filter-btn[data-filter="brand3c"].active{ background:var(--pink-deep); color:#fff; border-color:var(--pink-deep); }
 
   /* ---------- card grid ---------- */
   .grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; padding-bottom:60px; }
@@ -150,18 +151,41 @@
     clip-path: polygon(0 0, 100% 0, 100% 100%, 22px 100%, 0 calc(100% - 22px));
   }
   .card:hover{ transform:translateY(-4px) rotate(-0.6deg); background:#FBFFF0; }
-  /* ✅ 브랜드 심층 카드 호버 */
-  .card.brand3c:hover{ background:#EEF8FF; }
+  /* ✅ 핑크 카드 호버 */
+  .card.brand3c:hover{ background:#FFF0F8; }
   .card-top{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px; }
   .card-day{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:22px; color:var(--lime-deep); }
+
+  /* ✅ 3번 이미지 수정: 모든 칩 동일한 사이즈·폰트로 통일 */
   .chip{
-    font-family:'Space Grotesk',sans-serif; font-size:10.5px; font-weight:700;
-    padding:4px 10px; border-radius:5px; white-space:nowrap; letter-spacing:.03em;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:10.5px;
+    font-weight:700;
+    padding:4px 10px;
+    border-radius:5px;
+    white-space:nowrap;
+    letter-spacing:.03em;
+    display:inline-block;
+    line-height:1.4;
   }
-  .chip.ad{ background:var(--ink); color:var(--lime); }
-  .chip.brand{ background:var(--lime); color:var(--ink); }
-  /* ✅ 브랜드 심층 칩 */
-  .chip.brand3c{ background:var(--sky-deep); color:#fff; }
+  .chip.ad{
+    background:var(--ink);
+    color:var(--lime);
+    border:1.5px solid var(--ink);
+  }
+  /* ✅ 테두리 추가 → 광고 칩과 시각적 크기 동일하게 */
+  .chip.brand{
+    background:var(--lime);
+    color:var(--ink);
+    border:1.5px solid var(--ink);
+  }
+  /* ✅ 핑크 칩 */
+  .chip.brand3c{
+    background:var(--pink-deep);
+    color:#fff;
+    border:1.5px solid var(--pink-deep);
+  }
+
   .card .brand{
     font-family:'Daon Cinema1','Black Han Sans', sans-serif; font-weight:400;
     font-size:21px; margin:0 0 8px; line-height:1.25;
@@ -182,8 +206,8 @@
     clip-path: polygon(0 0, calc(100% - 26px) 0, 100% 26px, 100% 100%, 0 100%);
   }
   .modal-head{ padding:30px 32px 22px; border-bottom:2.5px solid var(--ink); position:relative; background:var(--lime); }
-  /* ✅ 브랜드 심층 모달 헤더 */
-  .modal-head.brand3c{ background:var(--sky); }
+  /* ✅ 핑크 모달 헤더 */
+  .modal-head.brand3c{ background:var(--pink); }
   .modal-close{
     position:absolute; top:16px; right:20px; background:var(--ink); color:var(--lime); border:none;
     width:30px; height:30px; border-radius:50%; font-size:15px; cursor:pointer;
@@ -194,18 +218,17 @@
   .modal-body{ padding:26px 32px 34px; }
   .modal-body p{ font-size:14.5px; line-height:1.85; color:#2b2a26; margin:0 0 20px; }
   .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; }
-  /* ✅ 3C용 3단 그리드 */
   .grid3{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:12px; }
   .block{ background:var(--paper); border:2px solid var(--ink); border-radius:8px; padding:14px 16px; }
   .block .k{ font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700; color:var(--lime-deep); margin-bottom:6px; letter-spacing:.03em; }
-  /* ✅ 브랜드 심층 블록 키 색상 */
-  .block .k.blue{ color:var(--sky-deep); }
+  /* ✅ 핑크 블록 키 */
+  .block .k.pink{ color:var(--pink-deep); }
   .block .v{ font-size:13.5px; line-height:1.7; color:var(--ink); }
-  /* ✅ 3C / 4P 구간 구분 라벨 */
+  /* ✅ 핑크 섹션 라벨 */
   .modal-section-label{
     font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700;
-    letter-spacing:.06em; color:var(--sky-deep);
-    border-left:3px solid var(--sky-deep); padding-left:8px;
+    letter-spacing:.06em; color:var(--pink-deep);
+    border-left:3px solid var(--pink-deep); padding-left:8px;
     margin:20px 0 10px; display:block;
   }
   .insight-box{ background:var(--ink); color:var(--paper); padding:16px 18px; border-radius:8px; }
@@ -258,7 +281,6 @@
       <div class="section-desc">광고를 볼 땐 4C, 브랜드를 볼 땐 4P 또는 3C+4P를 렌즈로 사용합니다.</div>
     </div>
     <div class="legend-grid">
-      <!-- 기존 4C 카드 -->
       <div class="legend-card a">
         <span class="tag">4C · 광고 분석용</span>
         <ul>
@@ -268,7 +290,6 @@
           <li><b>Communication —</b> 어떤 어조로 설득하는가</li>
         </ul>
       </div>
-      <!-- 기존 4P 카드 -->
       <div class="legend-card b">
         <span class="tag">4P · 브랜드 분석 ver.1</span>
         <ul>
@@ -278,7 +299,6 @@
           <li><b>Promotion —</b> 어떻게 존재를 알리는가</li>
         </ul>
       </div>
-      <!-- ✅ 신규: 3C+4P 브랜드 심층 카드 -->
       <div class="legend-card c">
         <span class="tag">3C+4P · 브랜드 분석 ver.2</span>
         <ul>
@@ -302,7 +322,6 @@
       <h2 class="section-title"><span class="idx">01 /</span>분석 아카이브</h2>
       <div class="section-desc">카드를 클릭하면 전체 분석을 볼 수 있어요.</div>
     </div>
-    <!-- ✅ 필터 탭: 브랜드 분석 2종 -->
     <div class="filter-bar" id="filterBar">
       <button class="filter-btn active" data-filter="all">전체</button>
       <button class="filter-btn" data-filter="ad">광고 분석 (4C)</button>
@@ -335,88 +354,13 @@
 /* =========================================================
    데이터 입력 가이드
    ─────────────────────────────────────────────────────────
-   type: "ad"      → 광고 분석 (4C)
-     필드: c1, c2, c3, c4
-
-   type: "brand"   → 브랜드 분석 ver.1 (4P)
-     필드: p1, p2, p3, p4
-
-   type: "brand3c" → 브랜드 분석 ver.2 (3C+4P)
-     필드: s_company, s_customer, s_competitor  ← 3C
-           p1, p2, p3, p4                       ← 4P
+   type: "ad"      → 광고 분석 (4C)       : c1~c4
+   type: "brand"   → 브랜드 분석 ver.1    : p1~p4
+   type: "brand3c" → 브랜드 분석 ver.2    : s_company, s_customer, s_competitor + p1~p4
    ========================================================= */
 const ENTRIES = [
 
-  // ── 브랜드 분석 ver.2 (3C+4P) 예시 ──────────────────────
-  // {
-  //   day: 5,
-  //   date: "2026-07-29",
-  //   type: "brand3c",
-  //   brand: "브랜드명",
-  //   hook: "목록에서 보일 한 줄 요약",
-  //   target: "타겟층 한 줄 설명",
-  //   overview: "브랜드 개요 (2~4문장)",
-  //   s_company:    "자사 강점·약점·핵심 역량",
-  //   s_customer:   "타깃 고객 특성·니즈·행동 패턴",
-  //   s_competitor: "경쟁사 전략·포지셔닝",
-  //   p1: "Product 분석",
-  //   p2: "Price 분석",
-  //   p3: "Place 분석",
-  //   p4: "Promotion 분석",
-  //   insight: "오늘의 인사이트"
-  // },
-
-  // ── 브랜드 분석 ver.2 (3C+4P) 예시 데이터 ───────────────
   {
-    day: 4,
-    date: "2026-07-28",
-    type: "brand3c",
-    brand: "예시 브랜드 · 올리브영",
-    hook: "H&B 시장의 지각변동 — 3C로 본 올리브영의 독주 구조",
-    target: "뷰티·헬스 제품을 오프라인에서 직접 체험하고 싶은 10~30대 여성",
-    overview: "드럭스토어 시장에서 경쟁자들이 줄줄이 철수하는 동안 올리브영이 사실상 독점적 지위를 굳힌 배경을 3C로 분석하고, 그것이 4P 전략에 어떻게 반영되어 있는지 살펴본 심층 분석입니다.",
-    s_company:    "전국 1,300개 이상 오프라인 점포망, PB 상품 기획력, 자체 앱·온라인몰 연동 옴니채널 운영 역량. 입점 브랜드 큐레이션 노하우가 핵심 자산.",
-    s_customer:   "오프라인에서 직접 테스터를 써보고 구매 결정을 내리는 뷰티 소비자. SNS 트렌드에 민감하며 '올영 입점 = 검증된 브랜드'라는 신뢰 구조를 내면화.",
-    s_competitor: "랄라블라·롭스 등 경쟁 H&B 브랜드는 모두 사업 축소·철수. 현재 직접 경쟁자는 없고, 쿠팡·무신사뷰티 등 온라인 플랫폼이 간접 경쟁자.",
-    p1: "자체 PB(예: 웨이크메이크·라운드어라운드)와 외부 입점 브랜드 혼합 구성. '발굴형 큐레이션'으로 신진 브랜드의 런칭 채널 역할.",
-    p2: "정가 판매 기반이지만 올영 세일(연 2회 대규모)로 구매 시점을 집중시키는 구조. 멤버십 등급제로 재구매 유도.",
-    p3: "역세권·상권 중심 오프라인 점포 + 자체 앱 당일배송(오늘드림)으로 온·오프 접점 완성. 앱 MAU 1,000만 돌파.",
-    p4: "인플루언서 협업보다 '올영 추천템' 콘텐츠 생태계 자생적 형성. 세일 기간 SNS 버즈가 자연 발생하는 구조.",
-    insight: "경쟁자가 사라진 시장에서 올리브영이 선택한 건 '가격 경쟁'이 아니라 '생태계 잠금'이었다. 브랜드 입장에서 올영 입점 자체가 마케팅이 되는 구조가 인상적이었고, 플랫폼이 곧 미디어가 되는 흐름을 다시 확인했다."
-  },
-
-  // ── 브랜드 분석 ver.1 (4P) 예시 데이터 ─────────────────
-  {
-    day: 3,
-    date: "2026-07-27",
-    type: "brand",
-    brand: "예시 브랜드 · 무신사 스탠다드",
-    hook: "품질은 지키고 군더더기는 뺀 '표준'이라는 포지셔닝",
-    target: "가격 대비 실패 없는 선택을 원하는 20대 초중반",
-    overview: "저관여 구매가 잦은 기본템 카테고리에서, 브랜드 로고 대신 '적당한 값에 무난하게 예쁜 옷'이라는 약속 자체를 브랜드로 만든 사례. 커뮤니티 플랫폼에서 축적된 취향 데이터를 자체 브랜드 기획에 활용한 것이 핵심 무기.",
-    p1: "군더더기 없는 핏과 색감으로 '기본에 진심'이라는 제품 철학을 유지",
-    p2: "동일 카테고리 대비 낮은 가격대로 '실패해도 아깝지 않은' 심리적 장벽 낮추기",
-    p3: "자사 플랫폼 최상단 노출 + 오프라인 스토어로 접점 확장",
-    p4: "인플루언서보다 '일반 사용자 후기'와 코디 콘텐츠 중심의 자연스러운 확산",
-    insight: "브랜드가 아니라 '카테고리의 기본값'이 되는 전략도 있다는 걸 배웠다. 로고를 내세우지 않는 대신, 플랫폼 데이터를 활용해 진짜 잘 팔리는 조합을 예측한 게 인상적이었다."
-  },
-
-  // ── 광고 분석 (4C) 예시 데이터 ─────────────────────────
-  {
-    day: 2,
-    date: "2026-07-26",
-    type: "ad",
-    brand: "예시 광고 · 배달앱 신규 캠페인",
-    hook: "배달 지연에 대한 불만을 유머로 먼저 인정해버리는 화법",
-    target: "배달 서비스에 익숙하지만 대기시간에 예민한 1인 가구·직장인",
-    overview: "출시 초반부터 있던 '배달이 늦다'는 부정 여론을 숨기지 않고, 과장된 상황극으로 먼저 웃음 포인트로 던지는 캠페인. 방어보다 자기 인정을 택한 톤이 특징.",
-    c1: "이미 서비스를 써본, 불만이 있는 기존 고객을 정면으로 겨냥",
-    c2: "돈보다 '신뢰 회복'이라는 심리적 비용을 낮추는 데 집중",
-    c3: "숏폼 위주 유통으로 스킵되기 쉬운 구간에서도 15초 내 임팩트 설계",
-    c4: "방어적 해명이 아니라 자기 풍자로 거리감을 좁히는 화법",
-    insight: "약점을 숨기지 않고 먼저 웃음으로 던지면 오히려 신뢰를 얻을 수 있다는 걸 확인했다. 다만 이 화법은 반복되면 피로감을 줄 수 있어 빈도 조절이 관건일 것 같다."
-  },
-    {
     day: 4,
     date: "2026-07-28",
     type: "brand3c",
@@ -434,6 +378,48 @@ const ENTRIES = [
     insight: "고객의 불편함(비교의 어려움)을 출발점으로 삼아 자사의 존재 이유를 설계한 구조가 인상적이었다. 3C를 먼저 정리하니 '왜 이 브랜드가 이런 전략을 쓰는가'가 자연스럽게 연결됐고, 프레임워크가 단순 나열이 아닌 논리적 흐름을 만드는 도구라는 걸 체감했다."
   },
 
+  {
+    day: 3,
+    date: "2026-07-27",
+    type: "brand",
+    brand: "예시 브랜드 · 무신사 스탠다드",
+    hook: "품질은 지키고 군더더기는 뺀 '표준'이라는 포지셔닝",
+    target: "가격 대비 실패 없는 선택을 원하는 20대 초중반",
+    overview: "저관여 구매가 잦은 기본템 카테고리에서, 브랜드 로고 대신 '적당한 값에 무난하게 예쁜 옷'이라는 약속 자체를 브랜드로 만든 사례. 커뮤니티 플랫폼에서 축적된 취향 데이터를 자체 브랜드 기획에 활용한 것이 핵심 무기.",
+    p1: "군더더기 없는 핏과 색감으로 '기본에 진심'이라는 제품 철학을 유지",
+    p2: "동일 카테고리 대비 낮은 가격대로 '실패해도 아깝지 않은' 심리적 장벽 낮추기",
+    p3: "자사 플랫폼 최상단 노출 + 오프라인 스토어로 접점 확장",
+    p4: "인플루언서보다 '일반 사용자 후기'와 코디 콘텐츠 중심의 자연스러운 확산",
+    insight: "브랜드가 아니라 '카테고리의 기본값'이 되는 전략도 있다는 걸 배웠다. 로고를 내세우지 않는 대신, 플랫폼 데이터를 활용해 진짜 잘 팔리는 조합을 예측한 게 인상적이었다."
+  },
+  {
+    day: 2,
+    date: "2026-07-26",
+    type: "ad",
+    brand: "예시 광고 · 배달앱 신규 캠페인",
+    hook: "배달 지연에 대한 불만을 유머로 먼저 인정해버리는 화법",
+    target: "배달 서비스에 익숙하지만 대기시간에 예민한 1인 가구·직장인",
+    overview: "출시 초반부터 있던 '배달이 늦다'는 부정 여론을 숨기지 않고, 과장된 상황극으로 먼저 웃음 포인트로 던지는 캠페인. 방어보다 자기 인정을 택한 톤이 특징.",
+    c1: "이미 서비스를 써본, 불만이 있는 기존 고객을 정면으로 겨냥",
+    c2: "돈보다 '신뢰 회복'이라는 심리적 비용을 낮추는 데 집중",
+    c3: "숏폼 위주 유통으로 스킵되기 쉬운 구간에서도 15초 내 임팩트 설계",
+    c4: "방어적 해명이 아니라 자기 풍자로 거리감을 좁히는 화법",
+    insight: "약점을 숨기지 않고 먼저 웃음으로 던지면 오히려 신뢰를 얻을 수 있다는 걸 확인했다. 다만 이 화법은 반복되면 피로감을 줄 수 있어 빈도 조절이 관건일 것 같다."
+  },
+  {
+    day: 1,
+    date: "2026-07-25",
+    type: "ad",
+    brand: "예시 광고 · 생수 브랜드 여름 캠페인",
+    hook: "제품 설명 없이 '갈증의 순간'만 15초간 보여주는 미니멀 연출",
+    target: "야외활동이 많은 20~30대, 운동·아웃도어 소비층",
+    overview: "카피 없이 땀, 갈증, 첫 모금의 표정만으로 구성된 광고. 제품 스펙 대신 '그 순간의 감각'을 파는 전형적인 감성 소구형 광고.",
+    c1: "특정 스펙보다 '갈증'이라는 보편적 순간을 겪는 모든 사람",
+    c2: "설득의 비용을 말이 아니라 감각적 공감으로 대체",
+    c3: "여름 시즌 다수 채널 동시 노출로 접점을 넓힘",
+    c4: "설명 대신 침묵과 사운드로 몰입감을 만드는 절제된 화법",
+    insight: "말을 줄일수록 메시지가 선명해질 수 있다는 걸 배웠다. 카피가 없다는 것 자체가 '설명이 필요 없을 만큼 본질적인 제품'이라는 메시지가 된다는 점이 인상 깊었다."
+  }
 ];
 
 /* ========================================================= */
@@ -452,13 +438,11 @@ function typeLabel(t){
 function render(){
   const data = [...ENTRIES].sort((a,b) => b.day - a.day)
     .filter(e => activeFilter === 'all' ? true : e.type === activeFilter);
-
   grid.innerHTML = '';
   if(data.length === 0){
     grid.innerHTML = '<div class="empty-state">해당하는 분석이 아직 없어요.</div>';
     return;
   }
-
   data.forEach((e) => {
     const card = document.createElement('div');
     card.className = 'card' + (e.type === 'brand3c' ? ' brand3c' : '');
@@ -475,10 +459,9 @@ function render(){
 }
 
 function openModal(e){
-  const isAd     = e.type === 'ad';
-  const isBrand  = e.type === 'brand';
-  const isBrand3c= e.type === 'brand3c';
-
+  const isAd      = e.type === 'ad';
+  const isBrand   = e.type === 'brand';
+  const isBrand3c = e.type === 'brand3c';
   let analysisHTML = '';
 
   if(isAd){
@@ -487,32 +470,27 @@ function openModal(e){
       '<div class="grid2">' +
         rows.map(r => '<div class="block"><div class="k cap">' + r[0] + '</div><div class="v">' + r[1] + '</div></div>').join('') +
       '</div>';
-
   } else if(isBrand){
     const rows = [['PRODUCT',e.p1],['PRICE',e.p2],['PLACE',e.p3],['PROMOTION',e.p4]];
     analysisHTML =
       '<div class="grid2">' +
         rows.map(r => '<div class="block"><div class="k cap">' + r[0] + '</div><div class="v">' + r[1] + '</div></div>').join('') +
       '</div>';
-
   } else if(isBrand3c){
-    // STEP 1: 3C
     const threeC = [
-      ['COMPANY · 자사',       e.s_company],
-      ['CUSTOMER · 고객',      e.s_customer],
-      ['COMPETITOR · 경쟁사',  e.s_competitor]
+      ['COMPANY · 자사',      e.s_company],
+      ['CUSTOMER · 고객',     e.s_customer],
+      ['COMPETITOR · 경쟁사', e.s_competitor]
     ];
-    // STEP 2: 4P
     const fourP = [['PRODUCT',e.p1],['PRICE',e.p2],['PLACE',e.p3],['PROMOTION',e.p4]];
-
     analysisHTML =
       '<span class="modal-section-label cap">STEP 1 — 3C 환경 분석</span>' +
       '<div class="grid3">' +
-        threeC.map(r => '<div class="block"><div class="k cap blue">' + r[0] + '</div><div class="v">' + r[1] + '</div></div>').join('') +
+        threeC.map(r => '<div class="block"><div class="k cap pink">' + r[0] + '</div><div class="v">' + r[1] + '</div></div>').join('') +
       '</div>' +
       '<span class="modal-section-label cap">STEP 2 — 4P 전략 해석</span>' +
       '<div class="grid2">' +
-        fourP.map(r => '<div class="block"><div class="k cap blue">' + r[0] + '</div><div class="v">' + r[1] + '</div></div>').join('') +
+        fourP.map(r => '<div class="block"><div class="k cap pink">' + r[0] + '</div><div class="v">' + r[1] + '</div></div>').join('') +
       '</div>';
   }
 
@@ -553,14 +531,11 @@ function updateStats(){
   const total      = ENTRIES.length;
   const maxDay     = Math.max(...ENTRIES.map(e => e.day));
   const adCount    = ENTRIES.filter(e => e.type === 'ad').length;
-  // ✅ 브랜드 분석은 4P + 3C+4P 합산
   const brandCount = ENTRIES.filter(e => e.type === 'brand' || e.type === 'brand3c').length;
-
   document.getElementById('statTotal').textContent  = total;
   document.getElementById('statStreak').textContent = 'D+' + maxDay;
   document.getElementById('statAd').textContent     = adCount;
   document.getElementById('statBrand').textContent  = brandCount;
-
   const latestDate = ENTRIES.reduce((a,b) => a.day > b.day ? a : b).date;
   document.getElementById('lastUpdated').textContent = latestDate;
 }
