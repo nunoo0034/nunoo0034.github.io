@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>매일 하나, 광고를 파헤친다 — 나홀로 마케팅 분석 챌린지</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<style>
+  /* 폰트 파일을 fonts/daon-cinema1.otf 에 넣으면 자동 적용됩니다 (없으면 Black Han Sans로 대체) */
+  @font-face{
+    font-family:'Daon Cinema1';
+    src: url('./fonts/daon-cinema1.otf') format('opentype');
+    font-display: swap;
+  }
+  :root{
+    --lime:#A6E639;
+    --lime-deep:#7CC22A;
+    --ink:#121212;
+    --paper:#F6F5EF;
+    --card:#FFFFFF;
+    --muted:#6E6B62;
+    --line:#121212;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Pretendard', -apple-system, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .display{ font-family:'Daon Cinema1','Black Han Sans', sans-serif; }
+  .cap{ font-family:'Space Grotesk', sans-serif; }
+
+  .wrap{max-width:1040px; margin:0 auto; padding:0 24px;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    background:var(--lime);
+    overflow:hidden;
+    padding:64px 0 96px;
+  }
+  .hero-wedge{
+    position:absolute; inset:0;
+    background: var(--paper);
+    clip-path: polygon(0% 0%, 34% 0%, 12% 100%, 0% 100%);
+  }
+  .hero-wedge.two{
+    background: var(--paper);
+    opacity:.55;
+    clip-path: polygon(58% 0%, 70% 0%, 46% 100%, 34% 100%);
+  }
+  .hero-inner{ position:relative; z-index:2; }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:13px; letter-spacing:.02em;
+    color:var(--ink); background:var(--paper);
+    border:2px solid var(--ink);
+    padding:7px 14px 7px 12px; border-radius:100px; margin-bottom:34px;
+  }
+  .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--ink);}
+
+  h1.hero-title{
+    font-family:'Daon Cinema1','Black Han Sans', sans-serif;
+    font-weight:400;
+    font-size:clamp(40px, 7.2vw, 78px);
+    line-height:1.06;
+    margin:0 0 8px;
+    transform:skewX(-4deg);
+    transform-origin:left top;
+    letter-spacing:-.01em;
+  }
+  h1.hero-title .line{display:block;}
+  h1.hero-title .pop{
+    display:inline-block;
+    background:var(--ink); color:var(--lime);
+    padding:2px 14px 6px; border-radius:6px;
+    transform:skewX(4deg) rotate(-2deg);
+    margin-left:4px;
+  }
+  .hero-caption{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:15px; color:var(--ink);
+    display:inline-block;
+    transform:rotate(-2deg);
+    margin:18px 0 44px 4px;
+    border-bottom:2px solid var(--ink);
+    padding-bottom:2px;
+  }
+  p.lede{
+    font-size:16.5px; line-height:1.75; color:var(--ink);
+    max-width:520px; margin:0 0 40px;
+    background:var(--paper);
+    padding:18px 20px;
+    border:2px solid var(--ink);
+    border-radius:10px;
+  }
+
+  .stat-row{ display:flex; gap:12px; flex-wrap:wrap; }
+  .stat{
+    background:var(--ink); color:var(--paper);
+    border-radius:8px; padding:16px 20px; min-width:132px;
+  }
+  .stat .num{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:26px; color:var(--lime);}
+  .stat .label{font-family:'Space Grotesk',sans-serif; font-size:11.5px; margin-top:4px; letter-spacing:.02em; opacity:.85;}
+
+  /* ---------- diagonal section divider ---------- */
+  .cut-divider{
+    height:46px;
+    background:var(--ink);
+    clip-path: polygon(0 0, 100% 100%, 100% 100%, 0% 100%);
+    margin-top:-1px;
+  }
+
+  /* ---------- section heading ---------- */
+  .section{padding:56px 0 8px;}
+  .section-head{display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:26px;}
+  h2.section-title{
+    font-family:'Daon Cinema1','Black Han Sans', sans-serif;
+    font-weight:400; font-size:28px; margin:0;
+    transform:skewX(-4deg); display:inline-block;
+  }
+  h2.section-title .idx{
+    font-family:'Space Grotesk',sans-serif; color:var(--lime-deep); font-weight:700; font-size:15px;
+    margin-right:10px; transform:none; display:inline-block;
+    -webkit-text-stroke: 0;
+  }
+  .section-desc{font-family:'Space Grotesk',sans-serif; font-size:13px; color:var(--muted);}
+
+  /* ---------- framework legend ---------- */
+  .legend-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px; margin-bottom:8px;}
+  .legend-card{
+    border:2px solid var(--ink); border-radius:10px; padding:18px 20px;
+  }
+  .legend-card.a{ background:var(--lime); color:var(--ink); }
+  .legend-card.b{ background:var(--ink); color:var(--paper); }
+  .legend-card .tag{
+    display:inline-block; font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:700;
+    padding:3px 10px; border-radius:5px; margin-bottom:12px; letter-spacing:.03em;
+  }
+  .legend-card.a .tag{ background:var(--ink); color:var(--lime); }
+  .legend-card.b .tag{ background:var(--lime); color:var(--ink); }
+  .legend-card ul{margin:0; padding-left:0; list-style:none; font-size:13.5px; line-height:1.95;}
+  .legend-card b{font-weight:700;}
+
+  /* ---------- filter bar ---------- */
+  .filter-bar{display:flex; gap:8px; flex-wrap:wrap; margin:34px 0 28px;}
+  .filter-btn{
+    font-family:'Space Grotesk',sans-serif; font-size:13px; letter-spacing:.02em;
+    border:2px solid var(--ink); background:var(--paper); color:var(--ink);
+    padding:8px 16px; border-radius:100px; cursor:pointer; transition:.15s;
+  }
+  .filter-btn:hover{ background:var(--lime); }
+  .filter-btn.active{background:var(--ink); color:var(--lime); border-color:var(--ink);}
+
+  /* ---------- card grid archive ---------- */
+  .grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:18px; padding-bottom:60px;
+  }
+  .card{
+    background:var(--card);
+    border:2.5px solid var(--ink);
+    padding:22px 22px 20px;
+    cursor:pointer;
+    transition: transform .15s ease;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 22px 100%, 0 calc(100% - 22px));
+  }
+  .card:hover{ transform: translateY(-4px) rotate(-0.6deg); background:#FBFFF0; }
+  .card-top{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px;}
+  .card-day{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:22px; color:var(--lime-deep);}
+  .chip{
+    font-family:'Space Grotesk',sans-serif; font-size:10.5px; font-weight:700;
+    padding:4px 10px; border-radius:5px; white-space:nowrap; letter-spacing:.03em;
+  }
+  .chip.ad{ background:var(--ink); color:var(--lime); }
+  .chip.brand{ background:var(--lime); color:var(--ink); }
+  .card .brand{
+    font-family:'Daon Cinema1','Black Han Sans', sans-serif; font-weight:400; font-size:21px; margin:0 0 8px;
+    line-height:1.25;
+  }
+  .card .hook{font-family:'Pretendard'; font-size:13.5px; color:var(--muted); margin:0; line-height:1.6;}
+
+  .empty-state{
+    padding:60px 28px; text-align:center; color:var(--muted); font-size:14px; grid-column:1/-1;
+  }
+
+  /* ---------- modal ---------- */
+  .overlay{
+    position:fixed; inset:0; background:rgba(18,18,18,.6);
+    display:none; align-items:flex-start; justify-content:center;
+    padding:40px 20px; overflow-y:auto; z-index:50;
+  }
+  .overlay.open{display:flex;}
+  .modal{
+    background:var(--card); max-width:680px; width:100%;
+    border:3px solid var(--ink);
+    overflow:hidden; margin-bottom:40px;
+    clip-path: polygon(0 0, calc(100% - 26px) 0, 100% 26px, 100% 100%, 0 100%);
+  }
+  .modal-head{padding:30px 32px 22px; border-bottom:2.5px solid var(--ink); position:relative; background:var(--lime);}
+  .modal-close{
+    position:absolute; top:16px; right:20px; background:var(--ink); color:var(--lime); border:none;
+    width:30px; height:30px; border-radius:50%; font-size:15px; cursor:pointer; font-family:'Space Grotesk',sans-serif;
+  }
+  .modal-eyebrow{font-family:'Space Grotesk',sans-serif; font-size:12px; color:var(--ink); margin-bottom:10px; font-weight:700;}
+  .modal-head h3{font-family:'Daon Cinema1','Black Han Sans',sans-serif; font-weight:400; font-size:27px; margin:0 0 8px;}
+  .modal-head .target{font-family:'Pretendard'; font-size:13.5px; color:var(--ink);}
+  .modal-body{padding:26px 32px 34px;}
+  .modal-body p{font-size:14.5px; line-height:1.85; color:#2b2a26; margin:0 0 20px;}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px;}
+  .block{background:var(--paper); border:2px solid var(--ink); border-radius:8px; padding:14px 16px;}
+  .block .k{font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700; color:var(--lime-deep); margin-bottom:6px; letter-spacing:.03em;}
+  .block .v{font-size:13.5px; line-height:1.7; color:var(--ink);}
+  .insight-box{
+    background:var(--ink); color:var(--paper);
+    padding:16px 18px; border-radius:8px;
+  }
+  .insight-box .k{font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700; color:var(--lime); margin-bottom:6px;}
+  .insight-box p{margin:0; font-size:14px; color:var(--paper);}
+
+  /* ---------- footer ---------- */
+  footer{padding:50px 0 60px;}
+  .foot-grid{display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; align-items:flex-end;}
+  footer .brand-mark{font-family:'Daon Cinema1','Black Han Sans',sans-serif; font-weight:400; font-size:19px; transform:skewX(-4deg); display:inline-block;}
+  footer .foot-note{font-family:'Pretendard'; font-size:13px; color:var(--muted); max-width:420px; line-height:1.7;}
+  footer .foot-meta{font-family:'Space Grotesk',sans-serif; font-size:11.5px; color:var(--muted); text-align:right; line-height:1.8;}
+
+  @media(max-width:680px){
+    .grid{grid-template-columns:1fr;}
+    .grid2{grid-template-columns:1fr;}
+    p.lede{max-width:100%;}
+  }
+  :focus-visible{outline:3px solid var(--ink); outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-wedge"></div>
+  <div class="hero-wedge two"></div>
+  <div class="wrap hero-inner">
+    <span class="eyebrow"><span class="dot"></span>DAILY AD BREAKDOWN · SELF CHALLENGE</span>
+    <h1 class="hero-title">
+      <span class="line">크리에이티브</span>
+      <span class="line">광고 <span class="pop">뜯어보기</span></span>
+    </h1>
+    <span class="hero-caption cap">by a marketing challenger</span>
+
+    <p class="lede">유튜브 콘텐츠 마케팅 직무를 준비하며 시작한 나홀로 챌린지 기록입니다. 하루에 광고 또는 브랜드 하나를 골라 4C·4P 프레임워크로 뜯어보고, 이곳에 한 장씩 쌓아갑니다.</p>
+
+    <div class="stat-row" id="statRow">
+      <div class="stat"><div class="num cap" id="statTotal">-</div><div class="label">누적 분석</div></div>
+      <div class="stat"><div class="num cap" id="statStreak">-</div><div class="label">진행 Day</div></div>
+      <div class="stat"><div class="num cap" id="statAd">-</div><div class="label">광고 분석</div></div>
+      <div class="stat"><div class="num cap" id="statBrand">-</div><div class="label">브랜드 분석</div></div>
+    </div>
+  </div>
+</section>
+<div class="cut-divider"></div>
+
+<div class="wrap">
+  <section class="section">
+    <div class="section-head">
+      <h2 class="section-title"><span class="idx">00 /</span>분석 프레임워크</h2>
+      <div class="section-desc">광고를 볼 땐 4C, 브랜드를 볼 땐 4P를 기본 렌즈로 사용합니다.</div>
+    </div>
+    <div class="legend-grid">
+      <div class="legend-card a">
+        <span class="tag">4C · 광고 분석용</span>
+        <ul>
+          <li><b>Customer —</b> 누구를 향한 메시지인가</li>
+          <li><b>Cost —</b> 소비자가 지불하는 것(돈·시간·심리)</li>
+          <li><b>Convenience —</b> 어디서, 얼마나 쉽게 닿는가</li>
+          <li><b>Communication —</b> 어떤 어조로 설득하는가</li>
+        </ul>
+      </div>
+      <div class="legend-card b">
+        <span class="tag">4P · 브랜드 분석용</span>
+        <ul>
+          <li><b>Product —</b> 무엇을 파는가, 핵심 가치는</li>
+          <li><b>Price —</b> 가격이 포지셔닝에 주는 신호</li>
+          <li><b>Place —</b> 어떤 채널·맥락에서 만나는가</li>
+          <li><b>Promotion —</b> 어떻게 존재를 알리는가</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="archive">
+    <div class="section-head">
+      <h2 class="section-title"><span class="idx">01 /</span>분석 아카이브</h2>
+      <div class="section-desc">카드를 클릭하면 전체 분석을 볼 수 있어요.</div>
+    </div>
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" data-filter="all">전체</button>
+      <button class="filter-btn" data-filter="ad">광고 분석 (4C)</button>
+      <button class="filter-btn" data-filter="brand">브랜드 분석 (4P)</button>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <footer>
+    <div class="foot-grid">
+      <div>
+        <div class="brand-mark">DAILY AD BREAKDOWN</div>
+        <p class="foot-note">코멘토 · 더나은인재들 드림버스컴퍼니 유튜브 콘텐츠 마케팅 과정을 계기로 시작한 개인 학습 챌린지입니다. 매일 업데이트됩니다.</p>
+      </div>
+      <div class="foot-meta">
+        LAST UPDATED — <span id="lastUpdated">-</span><br>
+        FORMAT — 4C / 4P<br>
+        STATUS — IN PROGRESS
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal"></div>
+</div>
+
+<script>
+/* =========================================================
+   여기에 매일 새 분석을 "복사 → 붙여넣기 → 내용만 수정" 하세요.
+   ========================================================= */
+const ENTRIES = [
+  // ---- 새 항목을 추가하려면 이 블록을 복사해서 위에 붙여넣으세요 ----
+  // {
+  //   day: 4,
+  //   date: "2026-07-30",
+  //   type: "ad",              // "ad" = 광고분석(4C) / "brand" = 브랜드분석(4P)
+  //   brand: "브랜드명",
+  //   hook: "목록에서 보일 한 줄 요약",
+  //   target: "타겟층 한 줄 설명",
+  //   overview: "광고 또는 브랜드에 대한 개요 설명 (2~4문장)",
+  //   c1: "Customer 관련 분석 내용",
+  //   c2: "Cost 관련 분석 내용",
+  //   c3: "Convenience 관련 분석 내용",
+  //   c4: "Communication 관련 분석 내용",
+  //   insight: "왜 이렇게 만들었을까 + 오늘 배운 점"
+  // },
+
+  {
+    day: 3,
+    date: "2026-07-27",
+    type: "brand",
+    brand: "예시 브랜드 · 무신사 스탠다드",
+    hook: "품질은 지키고 군더더기는 뺀 '표준'이라는 포지셔닝",
+    target: "가격 대비 실패 없는 선택을 원하는 20대 초중반",
+    overview: "저관여 구매가 잦은 기본템 카테고리에서, 브랜드 로고 대신 '적당한 값에 무난하게 예쁜 옷'이라는 약속 자체를 브랜드로 만든 사례. 커뮤니티 플랫폼에서 축적된 취향 데이터를 자체 브랜드 기획에 활용한 것이 핵심 무기.",
+    p1: "군더더기 없는 핏과 색감으로 '기본에 진심'이라는 제품 철학을 유지",
+    p2: "동일 카테고리 대비 낮은 가격대로 '실패해도 아깝지 않은' 심리적 장벽 낮추기",
+    p3: "자사 플랫폼 최상단 노출 + 오프라인 스토어로 접점 확장",
+    p4: "인플루언서보다 '일반 사용자 후기'와 코디 콘텐츠 중심의 자연스러운 확산",
+    insight: "브랜드가 아니라 '카테고리의 기본값'이 되는 전략도 있다는 걸 배웠다. 로고를 내세우지 않는 대신, 플랫폼 데이터를 활용해 진짜 잘 팔리는 조합을 예측한 게 인상적이었다."
+  },
+  {
+    day: 2,
+    date: "2026-07-26",
+    type: "ad",
+    brand: "예시 광고 · 배달앱 신규 캠페인",
+    hook: "배달 지연에 대한 불만을 유머로 먼저 인정해버리는 화법",
+    target: "배달 서비스에 익숙하지만 대기시간에 예민한 1인 가구·직장인",
+    overview: "출시 초반부터 있던 '배달이 늦다'는 부정 여론을 숨기지 않고, 과장된 상황극으로 먼저 웃음 포인트로 던지는 캠페인. 방어보다 자기 인정을 택한 톤이 특징.",
+    c1: "이미 서비스를 써본, 불만이 있는 기존 고객을 정면으로 겨냥",
+    c2: "돈보다 '신뢰 회복'이라는 심리적 비용을 낮추는 데 집중",
+    c3: "숏폼 위주 유통으로 스킵되기 쉬운 구간에서도 15초 내 임팩트 설계",
+    c4: "방어적 해명이 아니라 자기 풍자로 거리감을 좁히는 화법",
+    insight: "약점을 숨기지 않고 먼저 웃음으로 던지면 오히려 신뢰를 얻을 수 있다는 걸 확인했다. 다만 이 화법은 반복되면 피로감을 줄 수 있어 빈도 조절이 관건일 것 같다."
+  },
+  {
+    day: 1,
+    date: "2026-07-25",
+    type: "ad",
+    brand: "예시 광고 · 생수 브랜드 여름 캠페인",
+    hook: "제품 설명 없이 '갈증의 순간'만 15초간 보여주는 미니멀 연출",
+    target: "야외활동이 많은 20~30대, 운동·아웃도어 소비층",
+    overview: "카피 없이 땀, 갈증, 첫 모금의 표정만으로 구성된 광고. 제품 스펙 대신 '그 순간의 감각'을 파는 전형적인 감성 소구형 광고.",
+    c1: "특정 스펙보다 '갈증'이라는 보편적 순간을 겪는 모든 사람",
+    c2: "설득의 비용을 말이 아니라 감각적 공감으로 대체",
+    c3: "여름 시즌 다수 채널 동시 노출로 접점을 넓힘",
+    c4: "설명 대신 침묵과 사운드로 몰입감을 만드는 절제된 화법",
+    insight: "말을 줄일수록 메시지가 선명해질 수 있다는 걸 배웠다. 카피가 없다는 것 자체가 '설명이 필요 없을 만큼 본질적인 제품'이라는 메시지가 된다는 점이 인상 깊었다."
+  }
+];
+
+/* ========================================================= */
+
+const grid = document.getElementById('grid');
+const overlay = document.getElementById('overlay');
+const modal = document.getElementById('modal');
+let activeFilter = 'all';
+
+function typeLabel(t){ return t === 'ad' ? '광고분석 · 4C' : '브랜드분석 · 4P'; }
+
+function render(){
+  const data = [...ENTRIES].sort((a,b)=> b.day - a.day)
+    .filter(e => activeFilter === 'all' ? true : e.type === activeFilter);
+
+  grid.innerHTML = '';
+
+  if(data.length === 0){
+    grid.innerHTML = '<div class="empty-state">해당하는 분석이 아직 없어요.</div>';
+    return;
+  }
+
+  data.forEach((e) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML =
+      '<div class="card-top">' +
+        '<span class="card-day cap">DAY ' + String(e.day).padStart(3,'0') + '</span>' +
+        '<span class="chip ' + e.type + '">' + typeLabel(e.type) + '</span>' +
+      '</div>' +
+      '<p class="brand">' + e.brand + '</p>' +
+      '<p class="hook">' + e.hook + '</p>';
+    card.addEventListener('click', () => openModal(e));
+    grid.appendChild(card);
+  });
+}
+
+function openModal(e){
+  const isAd = e.type === 'ad';
+  const rows = isAd
+    ? [['CUSTOMER', e.c1], ['COST', e.c2], ['CONVENIENCE', e.c3], ['COMMUNICATION', e.c4]]
+    : [['PRODUCT', e.p1], ['PRICE', e.p2], ['PLACE', e.p3], ['PROMOTION', e.p4]];
+
+  modal.innerHTML =
+    '<div class="modal-head">' +
+      '<button class="modal-close" id="closeBtn" aria-label="닫기">✕</button>' +
+      '<div class="modal-eyebrow cap">DAY ' + String(e.day).padStart(3,'0') + ' · ' + e.date + ' · ' + typeLabel(e.type) + '</div>' +
+      '<h3>' + e.brand + '</h3>' +
+      '<div class="target">타겟 &nbsp;' + e.target + '</div>' +
+    '</div>' +
+    '<div class="modal-body">' +
+      '<p>' + e.overview + '</p>' +
+      '<div class="grid2">' +
+        rows.map(r => '<div class="block"><div class="k cap">' + r[0] + '</div><div class="v">' + r[1] + '</div></div>').join('') +
+      '</div>' +
+      '<div class="insight-box">' +
+        '<div class="k cap">오늘의 인사이트</div>' +
+        '<p>' + e.insight + '</p>' +
+      '</div>' +
+    '</div>';
+  overlay.classList.add('open');
+  document.getElementById('closeBtn').addEventListener('click', closeModal);
+}
+function closeModal(){ overlay.classList.remove('open'); }
+overlay.addEventListener('click', (ev) => { if(ev.target === overlay) closeModal(); });
+document.addEventListener('keydown', (ev) => { if(ev.key === 'Escape') closeModal(); });
+
+document.getElementById('filterBar').addEventListener('click', (ev)=>{
+  const btn = ev.target.closest('.filter-btn');
+  if(!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  activeFilter = btn.dataset.filter;
+  render();
+});
+
+function updateStats(){
+  const total = ENTRIES.length;
+  const maxDay = Math.max(...ENTRIES.map(e=>e.day));
+  const adCount = ENTRIES.filter(e=>e.type==='ad').length;
+  const brandCount = ENTRIES.filter(e=>e.type==='brand').length;
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statStreak').textContent = 'D+' + maxDay;
+  document.getElementById('statAd').textContent = adCount;
+  document.getElementById('statBrand').textContent = brandCount;
+  const latestDate = ENTRIES.reduce((a,b)=> a.day > b.day ? a : b).date;
+  document.getElementById('lastUpdated').textContent = latestDate;
+}
+
+updateStats();
+render();
+</script>
+
+</body>
+</html>
