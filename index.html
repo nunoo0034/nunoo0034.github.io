@@ -9,7 +9,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 <style>
-  /* 폰트 파일을 fonts/daon-cinema1.otf 에 넣으면 자동 적용됩니다 (없으면 Black Han Sans로 대체) */
   @font-face{
     font-family:'Daon Cinema1';
     src: url('./fonts/daon-cinema1.otf') format('opentype');
@@ -23,6 +22,9 @@
     --card:#FFFFFF;
     --muted:#6E6B62;
     --line:#121212;
+    /* ✅ 브랜드 심층(3C+4P) 전용 컬러 */
+    --sky:#C8EEFF;
+    --sky-deep:#1A6FA0;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -35,73 +37,48 @@
   }
   .display{ font-family:'Daon Cinema1','Black Han Sans', sans-serif; }
   .cap{ font-family:'Space Grotesk', sans-serif; }
-
   .wrap{max-width:1040px; margin:0 auto; padding:0 24px;}
 
   /* ---------- HERO ---------- */
   .hero{
-    position:relative;
-    background:var(--lime);
-    overflow:hidden;
-    padding:64px 0 96px;
+    position:relative; background:var(--lime); overflow:hidden; padding:64px 0 96px;
   }
   .hero-wedge{
-    position:absolute; inset:0;
-    background: var(--paper);
+    position:absolute; inset:0; background:var(--paper);
     clip-path: polygon(0% 0%, 34% 0%, 12% 100%, 0% 100%);
   }
   .hero-wedge.two{
-    background: var(--paper);
-    opacity:.55;
+    background:var(--paper); opacity:.55;
     clip-path: polygon(58% 0%, 70% 0%, 46% 100%, 34% 100%);
   }
   .hero-inner{ position:relative; z-index:2; }
   .eyebrow{
     display:inline-flex; align-items:center; gap:8px;
-    font-family:'Space Grotesk', sans-serif;
-    font-size:13px; letter-spacing:.02em;
-    color:var(--ink); background:var(--paper);
-    border:2px solid var(--ink);
+    font-family:'Space Grotesk', sans-serif; font-size:13px; letter-spacing:.02em;
+    color:var(--ink); background:var(--paper); border:2px solid var(--ink);
     padding:7px 14px 7px 12px; border-radius:100px; margin-bottom:34px;
   }
   .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--ink);}
-
   h1.hero-title{
-    font-family:'Daon Cinema1','Black Han Sans', sans-serif;
-    font-weight:400;
-    font-size:clamp(40px, 7.2vw, 78px);
-    line-height:1.06;
-    margin:0 0 8px;
-    transform:skewX(-4deg);
-    transform-origin:left top;
-    letter-spacing:-.01em;
+    font-family:'Daon Cinema1','Black Han Sans', sans-serif; font-weight:400;
+    font-size:clamp(40px, 7.2vw, 78px); line-height:1.06; margin:0 0 8px;
+    transform:skewX(-4deg); transform-origin:left top; letter-spacing:-.01em;
   }
   h1.hero-title .line{display:block;}
   h1.hero-title .pop{
-    display:inline-block;
-    background:var(--ink); color:var(--lime);
+    display:inline-block; background:var(--ink); color:var(--lime);
     padding:2px 14px 6px; border-radius:6px;
-    transform:skewX(4deg) rotate(-2deg);
-    margin-left:4px;
+    transform:skewX(4deg) rotate(-2deg); margin-left:4px;
   }
   .hero-caption{
-    font-family:'Space Grotesk', sans-serif;
-    font-size:15px; color:var(--ink);
-    display:inline-block;
-    transform:rotate(-2deg);
-    margin:18px 0 44px 4px;
-    border-bottom:2px solid var(--ink);
-    padding-bottom:2px;
+    font-family:'Space Grotesk', sans-serif; font-size:15px; color:var(--ink);
+    display:inline-block; transform:rotate(-2deg); margin:18px 0 44px 4px;
+    border-bottom:2px solid var(--ink); padding-bottom:2px;
   }
   p.lede{
-    font-size:16.5px; line-height:1.75; color:var(--ink);
-    max-width:520px; margin:0 0 40px;
-    background:var(--paper);
-    padding:18px 20px;
-    border:2px solid var(--ink);
-    border-radius:10px;
+    font-size:16.5px; line-height:1.75; color:var(--ink); max-width:520px; margin:0 0 40px;
+    background:var(--paper); padding:18px 20px; border:2px solid var(--ink); border-radius:10px;
   }
-
   .stat-row{ display:flex; gap:12px; flex-wrap:wrap; }
   .stat{
     background:var(--ink); color:var(--paper);
@@ -110,15 +87,13 @@
   .stat .num{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:26px; color:var(--lime);}
   .stat .label{font-family:'Space Grotesk',sans-serif; font-size:11.5px; margin-top:4px; letter-spacing:.02em; opacity:.85;}
 
-  /* ---------- diagonal section divider ---------- */
+  /* ---------- divider ---------- */
   .cut-divider{
-    height:46px;
-    background:var(--ink);
-    clip-path: polygon(0 0, 100% 100%, 100% 100%, 0% 100%);
-    margin-top:-1px;
+    height:46px; background:var(--ink);
+    clip-path: polygon(0 0, 100% 100%, 100% 100%, 0% 100%); margin-top:-1px;
   }
 
-  /* ---------- section heading ---------- */
+  /* ---------- section ---------- */
   .section{padding:56px 0 8px;}
   .section-head{display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:26px;}
   h2.section-title{
@@ -128,26 +103,31 @@
   }
   h2.section-title .idx{
     font-family:'Space Grotesk',sans-serif; color:var(--lime-deep); font-weight:700; font-size:15px;
-    margin-right:10px; transform:none; display:inline-block;
-    -webkit-text-stroke: 0;
+    margin-right:10px; display:inline-block;
   }
   .section-desc{font-family:'Space Grotesk',sans-serif; font-size:13px; color:var(--muted);}
 
   /* ---------- framework legend ---------- */
-  .legend-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px; margin-bottom:8px;}
-  .legend-card{
-    border:2px solid var(--ink); border-radius:10px; padding:18px 20px;
-  }
+  .legend-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-bottom:8px;}
+  .legend-card{ border:2px solid var(--ink); border-radius:10px; padding:18px 20px; }
   .legend-card.a{ background:var(--lime); color:var(--ink); }
   .legend-card.b{ background:var(--ink); color:var(--paper); }
+  /* ✅ 브랜드 심층 카드 */
+  .legend-card.c{ background:var(--sky); color:var(--ink); }
   .legend-card .tag{
     display:inline-block; font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:700;
     padding:3px 10px; border-radius:5px; margin-bottom:12px; letter-spacing:.03em;
   }
   .legend-card.a .tag{ background:var(--ink); color:var(--lime); }
   .legend-card.b .tag{ background:var(--lime); color:var(--ink); }
+  .legend-card.c .tag{ background:var(--sky-deep); color:#fff; }
   .legend-card ul{margin:0; padding-left:0; list-style:none; font-size:13.5px; line-height:1.95;}
   .legend-card b{font-weight:700;}
+  /* ✅ 3C→4P 구분 화살표 라벨 */
+  .legend-card .divider-label{
+    font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700;
+    color:var(--sky-deep); letter-spacing:.05em; margin:10px 0 6px; display:block;
+  }
 
   /* ---------- filter bar ---------- */
   .filter-bar{display:flex; gap:8px; flex-wrap:wrap; margin:34px 0 28px;}
@@ -157,38 +137,37 @@
     padding:8px 16px; border-radius:100px; cursor:pointer; transition:.15s;
   }
   .filter-btn:hover{ background:var(--lime); }
-  .filter-btn.active{background:var(--ink); color:var(--lime); border-color:var(--ink);}
+  .filter-btn.active{ background:var(--ink); color:var(--lime); border-color:var(--ink); }
+  /* ✅ 브랜드 심층 필터 전용 색상 */
+  .filter-btn[data-filter="brand3c"]:hover{ background:var(--sky); }
+  .filter-btn[data-filter="brand3c"].active{ background:var(--sky-deep); color:#fff; border-color:var(--sky-deep); }
 
-  /* ---------- card grid archive ---------- */
-  .grid{
-    display:grid; grid-template-columns:1fr 1fr; gap:18px; padding-bottom:60px;
-  }
+  /* ---------- card grid ---------- */
+  .grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; padding-bottom:60px; }
   .card{
-    background:var(--card);
-    border:2.5px solid var(--ink);
-    padding:22px 22px 20px;
-    cursor:pointer;
-    transition: transform .15s ease;
+    background:var(--card); border:2.5px solid var(--ink); padding:22px 22px 20px;
+    cursor:pointer; transition:transform .15s ease;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 22px 100%, 0 calc(100% - 22px));
   }
-  .card:hover{ transform: translateY(-4px) rotate(-0.6deg); background:#FBFFF0; }
-  .card-top{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px;}
-  .card-day{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:22px; color:var(--lime-deep);}
+  .card:hover{ transform:translateY(-4px) rotate(-0.6deg); background:#FBFFF0; }
+  /* ✅ 브랜드 심층 카드 호버 */
+  .card.brand3c:hover{ background:#EEF8FF; }
+  .card-top{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px; }
+  .card-day{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:22px; color:var(--lime-deep); }
   .chip{
     font-family:'Space Grotesk',sans-serif; font-size:10.5px; font-weight:700;
     padding:4px 10px; border-radius:5px; white-space:nowrap; letter-spacing:.03em;
   }
   .chip.ad{ background:var(--ink); color:var(--lime); }
   .chip.brand{ background:var(--lime); color:var(--ink); }
+  /* ✅ 브랜드 심층 칩 */
+  .chip.brand3c{ background:var(--sky-deep); color:#fff; }
   .card .brand{
-    font-family:'Daon Cinema1','Black Han Sans', sans-serif; font-weight:400; font-size:21px; margin:0 0 8px;
-    line-height:1.25;
+    font-family:'Daon Cinema1','Black Han Sans', sans-serif; font-weight:400;
+    font-size:21px; margin:0 0 8px; line-height:1.25;
   }
-  .card .hook{font-family:'Pretendard'; font-size:13.5px; color:var(--muted); margin:0; line-height:1.6;}
-
-  .empty-state{
-    padding:60px 28px; text-align:center; color:var(--muted); font-size:14px; grid-column:1/-1;
-  }
+  .card .hook{ font-size:13.5px; color:var(--muted); margin:0; line-height:1.6; }
+  .empty-state{ padding:60px 28px; text-align:center; color:var(--muted); font-size:14px; grid-column:1/-1; }
 
   /* ---------- modal ---------- */
   .overlay{
@@ -196,47 +175,57 @@
     display:none; align-items:flex-start; justify-content:center;
     padding:40px 20px; overflow-y:auto; z-index:50;
   }
-  .overlay.open{display:flex;}
+  .overlay.open{ display:flex; }
   .modal{
-    background:var(--card); max-width:680px; width:100%;
-    border:3px solid var(--ink);
+    background:var(--card); max-width:680px; width:100%; border:3px solid var(--ink);
     overflow:hidden; margin-bottom:40px;
     clip-path: polygon(0 0, calc(100% - 26px) 0, 100% 26px, 100% 100%, 0 100%);
   }
-  .modal-head{padding:30px 32px 22px; border-bottom:2.5px solid var(--ink); position:relative; background:var(--lime);}
+  .modal-head{ padding:30px 32px 22px; border-bottom:2.5px solid var(--ink); position:relative; background:var(--lime); }
+  /* ✅ 브랜드 심층 모달 헤더 */
+  .modal-head.brand3c{ background:var(--sky); }
   .modal-close{
     position:absolute; top:16px; right:20px; background:var(--ink); color:var(--lime); border:none;
-    width:30px; height:30px; border-radius:50%; font-size:15px; cursor:pointer; font-family:'Space Grotesk',sans-serif;
+    width:30px; height:30px; border-radius:50%; font-size:15px; cursor:pointer;
   }
-  .modal-eyebrow{font-family:'Space Grotesk',sans-serif; font-size:12px; color:var(--ink); margin-bottom:10px; font-weight:700;}
-  .modal-head h3{font-family:'Daon Cinema1','Black Han Sans',sans-serif; font-weight:400; font-size:27px; margin:0 0 8px;}
-  .modal-head .target{font-family:'Pretendard'; font-size:13.5px; color:var(--ink);}
-  .modal-body{padding:26px 32px 34px;}
-  .modal-body p{font-size:14.5px; line-height:1.85; color:#2b2a26; margin:0 0 20px;}
-  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px;}
-  .block{background:var(--paper); border:2px solid var(--ink); border-radius:8px; padding:14px 16px;}
-  .block .k{font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700; color:var(--lime-deep); margin-bottom:6px; letter-spacing:.03em;}
-  .block .v{font-size:13.5px; line-height:1.7; color:var(--ink);}
-  .insight-box{
-    background:var(--ink); color:var(--paper);
-    padding:16px 18px; border-radius:8px;
+  .modal-eyebrow{ font-family:'Space Grotesk',sans-serif; font-size:12px; color:var(--ink); margin-bottom:10px; font-weight:700; }
+  .modal-head h3{ font-family:'Daon Cinema1','Black Han Sans',sans-serif; font-weight:400; font-size:27px; margin:0 0 8px; }
+  .modal-head .target{ font-size:13.5px; color:var(--ink); }
+  .modal-body{ padding:26px 32px 34px; }
+  .modal-body p{ font-size:14.5px; line-height:1.85; color:#2b2a26; margin:0 0 20px; }
+  .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; }
+  /* ✅ 3C용 3단 그리드 */
+  .grid3{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:12px; }
+  .block{ background:var(--paper); border:2px solid var(--ink); border-radius:8px; padding:14px 16px; }
+  .block .k{ font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700; color:var(--lime-deep); margin-bottom:6px; letter-spacing:.03em; }
+  /* ✅ 브랜드 심층 블록 키 색상 */
+  .block .k.blue{ color:var(--sky-deep); }
+  .block .v{ font-size:13.5px; line-height:1.7; color:var(--ink); }
+  /* ✅ 3C / 4P 구간 구분 라벨 */
+  .modal-section-label{
+    font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700;
+    letter-spacing:.06em; color:var(--sky-deep);
+    border-left:3px solid var(--sky-deep); padding-left:8px;
+    margin:20px 0 10px; display:block;
   }
-  .insight-box .k{font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700; color:var(--lime); margin-bottom:6px;}
-  .insight-box p{margin:0; font-size:14px; color:var(--paper);}
+  .insight-box{ background:var(--ink); color:var(--paper); padding:16px 18px; border-radius:8px; }
+  .insight-box .k{ font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700; color:var(--lime); margin-bottom:6px; }
+  .insight-box p{ margin:0; font-size:14px; color:var(--paper); }
 
   /* ---------- footer ---------- */
-  footer{padding:50px 0 60px;}
-  .foot-grid{display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; align-items:flex-end;}
-  footer .brand-mark{font-family:'Daon Cinema1','Black Han Sans',sans-serif; font-weight:400; font-size:19px; transform:skewX(-4deg); display:inline-block;}
-  footer .foot-note{font-family:'Pretendard'; font-size:13px; color:var(--muted); max-width:420px; line-height:1.7;}
-  footer .foot-meta{font-family:'Space Grotesk',sans-serif; font-size:11.5px; color:var(--muted); text-align:right; line-height:1.8;}
+  footer{ padding:50px 0 60px; }
+  .foot-grid{ display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; align-items:flex-end; }
+  footer .brand-mark{ font-family:'Daon Cinema1','Black Han Sans',sans-serif; font-weight:400; font-size:19px; transform:skewX(-4deg); display:inline-block; }
+  footer .foot-note{ font-size:13px; color:var(--muted); max-width:420px; line-height:1.7; }
+  footer .foot-meta{ font-family:'Space Grotesk',sans-serif; font-size:11.5px; color:var(--muted); text-align:right; line-height:1.8; }
 
   @media(max-width:680px){
-    .grid{grid-template-columns:1fr;}
-    .grid2{grid-template-columns:1fr;}
-    p.lede{max-width:100%;}
+    .grid{ grid-template-columns:1fr; }
+    .grid2{ grid-template-columns:1fr; }
+    .grid3{ grid-template-columns:1fr; }
+    p.lede{ max-width:100%; }
   }
-  :focus-visible{outline:3px solid var(--ink); outline-offset:2px;}
+  :focus-visible{ outline:3px solid var(--ink); outline-offset:2px; }
 </style>
 </head>
 <body>
@@ -251,10 +240,8 @@
       <span class="line">광고 <span class="pop">뜯어보기</span></span>
     </h1>
     <span class="hero-caption cap">by a marketing challenger</span>
-
     <p class="lede">유튜브 콘텐츠 마케팅 직무를 준비하며 시작한 나홀로 챌린지 기록입니다. 하루에 광고 또는 브랜드 하나를 골라 4C·4P 프레임워크로 뜯어보고, 이곳에 한 장씩 쌓아갑니다.</p>
-
-    <div class="stat-row" id="statRow">
+    <div class="stat-row">
       <div class="stat"><div class="num cap" id="statTotal">-</div><div class="label">누적 분석</div></div>
       <div class="stat"><div class="num cap" id="statStreak">-</div><div class="label">진행 Day</div></div>
       <div class="stat"><div class="num cap" id="statAd">-</div><div class="label">광고 분석</div></div>
@@ -268,9 +255,10 @@
   <section class="section">
     <div class="section-head">
       <h2 class="section-title"><span class="idx">00 /</span>분석 프레임워크</h2>
-      <div class="section-desc">광고를 볼 땐 4C, 브랜드를 볼 땐 4P를 기본 렌즈로 사용합니다.</div>
+      <div class="section-desc">광고를 볼 땐 4C, 브랜드를 볼 땐 4P 또는 3C+4P를 렌즈로 사용합니다.</div>
     </div>
     <div class="legend-grid">
+      <!-- 기존 4C 카드 -->
       <div class="legend-card a">
         <span class="tag">4C · 광고 분석용</span>
         <ul>
@@ -280,13 +268,30 @@
           <li><b>Communication —</b> 어떤 어조로 설득하는가</li>
         </ul>
       </div>
+      <!-- 기존 4P 카드 -->
       <div class="legend-card b">
-        <span class="tag">4P · 브랜드 분석용</span>
+        <span class="tag">4P · 브랜드 분석 ver.1</span>
         <ul>
           <li><b>Product —</b> 무엇을 파는가, 핵심 가치는</li>
           <li><b>Price —</b> 가격이 포지셔닝에 주는 신호</li>
           <li><b>Place —</b> 어떤 채널·맥락에서 만나는가</li>
           <li><b>Promotion —</b> 어떻게 존재를 알리는가</li>
+        </ul>
+      </div>
+      <!-- ✅ 신규: 3C+4P 브랜드 심층 카드 -->
+      <div class="legend-card c">
+        <span class="tag">3C+4P · 브랜드 분석 ver.2</span>
+        <ul>
+          <li><b>Company —</b> 자사의 강점·약점·핵심 역량</li>
+          <li><b>Customer —</b> 타깃 고객, 니즈와 행동 패턴</li>
+          <li><b>Competitor —</b> 경쟁자의 전략과 포지셔닝</li>
+        </ul>
+        <span class="divider-label">↓ 3C 분석 기반으로 4P 전략 해석</span>
+        <ul>
+          <li><b>Product —</b> 경쟁 구도 속 제품의 차별점</li>
+          <li><b>Price —</b> 시장 내 가격 포지셔닝의 의미</li>
+          <li><b>Place —</b> 고객 접점 전략의 맥락</li>
+          <li><b>Promotion —</b> 경쟁 대비 커뮤니케이션 방향</li>
         </ul>
       </div>
     </div>
@@ -297,10 +302,12 @@
       <h2 class="section-title"><span class="idx">01 /</span>분석 아카이브</h2>
       <div class="section-desc">카드를 클릭하면 전체 분석을 볼 수 있어요.</div>
     </div>
+    <!-- ✅ 필터 탭: 브랜드 분석 2종 -->
     <div class="filter-bar" id="filterBar">
       <button class="filter-btn active" data-filter="all">전체</button>
       <button class="filter-btn" data-filter="ad">광고 분석 (4C)</button>
       <button class="filter-btn" data-filter="brand">브랜드 분석 (4P)</button>
+      <button class="filter-btn" data-filter="brand3c">브랜드 분석 (3C+4P)</button>
     </div>
     <div class="grid" id="grid"></div>
   </section>
@@ -313,7 +320,7 @@
       </div>
       <div class="foot-meta">
         LAST UPDATED — <span id="lastUpdated">-</span><br>
-        FORMAT — 4C / 4P<br>
+        FORMAT — 4C / 4P / 3C+4P<br>
         STATUS — IN PROGRESS
       </div>
     </div>
@@ -326,25 +333,59 @@
 
 <script>
 /* =========================================================
-   여기에 매일 새 분석을 "복사 → 붙여넣기 → 내용만 수정" 하세요.
+   데이터 입력 가이드
+   ─────────────────────────────────────────────────────────
+   type: "ad"      → 광고 분석 (4C)
+     필드: c1, c2, c3, c4
+
+   type: "brand"   → 브랜드 분석 ver.1 (4P)
+     필드: p1, p2, p3, p4
+
+   type: "brand3c" → 브랜드 분석 ver.2 (3C+4P)
+     필드: s_company, s_customer, s_competitor  ← 3C
+           p1, p2, p3, p4                       ← 4P
    ========================================================= */
 const ENTRIES = [
-  // ---- 새 항목을 추가하려면 이 블록을 복사해서 위에 붙여넣으세요 ----
+
+  // ── 브랜드 분석 ver.2 (3C+4P) 예시 ──────────────────────
   // {
-  //   day: 4,
-  //   date: "2026-07-30",
-  //   type: "ad",              // "ad" = 광고분석(4C) / "brand" = 브랜드분석(4P)
+  //   day: 5,
+  //   date: "2026-07-29",
+  //   type: "brand3c",
   //   brand: "브랜드명",
   //   hook: "목록에서 보일 한 줄 요약",
   //   target: "타겟층 한 줄 설명",
-  //   overview: "광고 또는 브랜드에 대한 개요 설명 (2~4문장)",
-  //   c1: "Customer 관련 분석 내용",
-  //   c2: "Cost 관련 분석 내용",
-  //   c3: "Convenience 관련 분석 내용",
-  //   c4: "Communication 관련 분석 내용",
-  //   insight: "왜 이렇게 만들었을까 + 오늘 배운 점"
+  //   overview: "브랜드 개요 (2~4문장)",
+  //   s_company:    "자사 강점·약점·핵심 역량",
+  //   s_customer:   "타깃 고객 특성·니즈·행동 패턴",
+  //   s_competitor: "경쟁사 전략·포지셔닝",
+  //   p1: "Product 분석",
+  //   p2: "Price 분석",
+  //   p3: "Place 분석",
+  //   p4: "Promotion 분석",
+  //   insight: "오늘의 인사이트"
   // },
 
+  // ── 브랜드 분석 ver.2 (3C+4P) 예시 데이터 ───────────────
+  {
+    day: 4,
+    date: "2026-07-28",
+    type: "brand3c",
+    brand: "예시 브랜드 · 올리브영",
+    hook: "H&B 시장의 지각변동 — 3C로 본 올리브영의 독주 구조",
+    target: "뷰티·헬스 제품을 오프라인에서 직접 체험하고 싶은 10~30대 여성",
+    overview: "드럭스토어 시장에서 경쟁자들이 줄줄이 철수하는 동안 올리브영이 사실상 독점적 지위를 굳힌 배경을 3C로 분석하고, 그것이 4P 전략에 어떻게 반영되어 있는지 살펴본 심층 분석입니다.",
+    s_company:    "전국 1,300개 이상 오프라인 점포망, PB 상품 기획력, 자체 앱·온라인몰 연동 옴니채널 운영 역량. 입점 브랜드 큐레이션 노하우가 핵심 자산.",
+    s_customer:   "오프라인에서 직접 테스터를 써보고 구매 결정을 내리는 뷰티 소비자. SNS 트렌드에 민감하며 '올영 입점 = 검증된 브랜드'라는 신뢰 구조를 내면화.",
+    s_competitor: "랄라블라·롭스 등 경쟁 H&B 브랜드는 모두 사업 축소·철수. 현재 직접 경쟁자는 없고, 쿠팡·무신사뷰티 등 온라인 플랫폼이 간접 경쟁자.",
+    p1: "자체 PB(예: 웨이크메이크·라운드어라운드)와 외부 입점 브랜드 혼합 구성. '발굴형 큐레이션'으로 신진 브랜드의 런칭 채널 역할.",
+    p2: "정가 판매 기반이지만 올영 세일(연 2회 대규모)로 구매 시점을 집중시키는 구조. 멤버십 등급제로 재구매 유도.",
+    p3: "역세권·상권 중심 오프라인 점포 + 자체 앱 당일배송(오늘드림)으로 온·오프 접점 완성. 앱 MAU 1,000만 돌파.",
+    p4: "인플루언서 협업보다 '올영 추천템' 콘텐츠 생태계 자생적 형성. 세일 기간 SNS 버즈가 자연 발생하는 구조.",
+    insight: "경쟁자가 사라진 시장에서 올리브영이 선택한 건 '가격 경쟁'이 아니라 '생태계 잠금'이었다. 브랜드 입장에서 올영 입점 자체가 마케팅이 되는 구조가 인상적이었고, 플랫폼이 곧 미디어가 되는 흐름을 다시 확인했다."
+  },
+
+  // ── 브랜드 분석 ver.1 (4P) 예시 데이터 ─────────────────
   {
     day: 3,
     date: "2026-07-27",
@@ -359,6 +400,8 @@ const ENTRIES = [
     p4: "인플루언서보다 '일반 사용자 후기'와 코디 콘텐츠 중심의 자연스러운 확산",
     insight: "브랜드가 아니라 '카테고리의 기본값'이 되는 전략도 있다는 걸 배웠다. 로고를 내세우지 않는 대신, 플랫폼 데이터를 활용해 진짜 잘 팔리는 조합을 예측한 게 인상적이었다."
   },
+
+  // ── 광고 분석 (4C) 예시 데이터 ─────────────────────────
   {
     day: 2,
     date: "2026-07-26",
@@ -396,14 +439,17 @@ const overlay = document.getElementById('overlay');
 const modal = document.getElementById('modal');
 let activeFilter = 'all';
 
-function typeLabel(t){ return t === 'ad' ? '광고분석 · 4C' : '브랜드분석 · 4P'; }
+function typeLabel(t){
+  if(t === 'ad')      return '광고분석 · 4C';
+  if(t === 'brand')   return '브랜드분석 · 4P';
+  if(t === 'brand3c') return '브랜드분석 · 3C+4P';
+}
 
 function render(){
-  const data = [...ENTRIES].sort((a,b)=> b.day - a.day)
+  const data = [...ENTRIES].sort((a,b) => b.day - a.day)
     .filter(e => activeFilter === 'all' ? true : e.type === activeFilter);
 
   grid.innerHTML = '';
-
   if(data.length === 0){
     grid.innerHTML = '<div class="empty-state">해당하는 분석이 아직 없어요.</div>';
     return;
@@ -411,7 +457,7 @@ function render(){
 
   data.forEach((e) => {
     const card = document.createElement('div');
-    card.className = 'card';
+    card.className = 'card' + (e.type === 'brand3c' ? ' brand3c' : '');
     card.innerHTML =
       '<div class="card-top">' +
         '<span class="card-day cap">DAY ' + String(e.day).padStart(3,'0') + '</span>' +
@@ -425,13 +471,49 @@ function render(){
 }
 
 function openModal(e){
-  const isAd = e.type === 'ad';
-  const rows = isAd
-    ? [['CUSTOMER', e.c1], ['COST', e.c2], ['CONVENIENCE', e.c3], ['COMMUNICATION', e.c4]]
-    : [['PRODUCT', e.p1], ['PRICE', e.p2], ['PLACE', e.p3], ['PROMOTION', e.p4]];
+  const isAd     = e.type === 'ad';
+  const isBrand  = e.type === 'brand';
+  const isBrand3c= e.type === 'brand3c';
+
+  let analysisHTML = '';
+
+  if(isAd){
+    const rows = [['CUSTOMER',e.c1],['COST',e.c2],['CONVENIENCE',e.c3],['COMMUNICATION',e.c4]];
+    analysisHTML =
+      '<div class="grid2">' +
+        rows.map(r => '<div class="block"><div class="k cap">' + r[0] + '</div><div class="v">' + r[1] + '</div></div>').join('') +
+      '</div>';
+
+  } else if(isBrand){
+    const rows = [['PRODUCT',e.p1],['PRICE',e.p2],['PLACE',e.p3],['PROMOTION',e.p4]];
+    analysisHTML =
+      '<div class="grid2">' +
+        rows.map(r => '<div class="block"><div class="k cap">' + r[0] + '</div><div class="v">' + r[1] + '</div></div>').join('') +
+      '</div>';
+
+  } else if(isBrand3c){
+    // STEP 1: 3C
+    const threeC = [
+      ['COMPANY · 자사',       e.s_company],
+      ['CUSTOMER · 고객',      e.s_customer],
+      ['COMPETITOR · 경쟁사',  e.s_competitor]
+    ];
+    // STEP 2: 4P
+    const fourP = [['PRODUCT',e.p1],['PRICE',e.p2],['PLACE',e.p3],['PROMOTION',e.p4]];
+
+    analysisHTML =
+      '<span class="modal-section-label cap">STEP 1 — 3C 환경 분석</span>' +
+      '<div class="grid3">' +
+        threeC.map(r => '<div class="block"><div class="k cap blue">' + r[0] + '</div><div class="v">' + r[1] + '</div></div>').join('') +
+      '</div>' +
+      '<span class="modal-section-label cap">STEP 2 — 4P 전략 해석</span>' +
+      '<div class="grid2">' +
+        fourP.map(r => '<div class="block"><div class="k cap blue">' + r[0] + '</div><div class="v">' + r[1] + '</div></div>').join('') +
+      '</div>';
+  }
 
   modal.innerHTML =
-    '<div class="modal-head">' +
+    '<div class="modal-head' + (isBrand3c ? ' brand3c' : '') + '">' +
       '<button class="modal-close" id="closeBtn" aria-label="닫기">✕</button>' +
       '<div class="modal-eyebrow cap">DAY ' + String(e.day).padStart(3,'0') + ' · ' + e.date + ' · ' + typeLabel(e.type) + '</div>' +
       '<h3>' + e.brand + '</h3>' +
@@ -439,40 +521,43 @@ function openModal(e){
     '</div>' +
     '<div class="modal-body">' +
       '<p>' + e.overview + '</p>' +
-      '<div class="grid2">' +
-        rows.map(r => '<div class="block"><div class="k cap">' + r[0] + '</div><div class="v">' + r[1] + '</div></div>').join('') +
-      '</div>' +
+      analysisHTML +
       '<div class="insight-box">' +
         '<div class="k cap">오늘의 인사이트</div>' +
         '<p>' + e.insight + '</p>' +
       '</div>' +
     '</div>';
+
   overlay.classList.add('open');
   document.getElementById('closeBtn').addEventListener('click', closeModal);
 }
+
 function closeModal(){ overlay.classList.remove('open'); }
 overlay.addEventListener('click', (ev) => { if(ev.target === overlay) closeModal(); });
 document.addEventListener('keydown', (ev) => { if(ev.key === 'Escape') closeModal(); });
 
-document.getElementById('filterBar').addEventListener('click', (ev)=>{
+document.getElementById('filterBar').addEventListener('click', (ev) => {
   const btn = ev.target.closest('.filter-btn');
   if(!btn) return;
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   activeFilter = btn.dataset.filter;
   render();
 });
 
 function updateStats(){
-  const total = ENTRIES.length;
-  const maxDay = Math.max(...ENTRIES.map(e=>e.day));
-  const adCount = ENTRIES.filter(e=>e.type==='ad').length;
-  const brandCount = ENTRIES.filter(e=>e.type==='brand').length;
-  document.getElementById('statTotal').textContent = total;
+  const total      = ENTRIES.length;
+  const maxDay     = Math.max(...ENTRIES.map(e => e.day));
+  const adCount    = ENTRIES.filter(e => e.type === 'ad').length;
+  // ✅ 브랜드 분석은 4P + 3C+4P 합산
+  const brandCount = ENTRIES.filter(e => e.type === 'brand' || e.type === 'brand3c').length;
+
+  document.getElementById('statTotal').textContent  = total;
   document.getElementById('statStreak').textContent = 'D+' + maxDay;
-  document.getElementById('statAd').textContent = adCount;
-  document.getElementById('statBrand').textContent = brandCount;
-  const latestDate = ENTRIES.reduce((a,b)=> a.day > b.day ? a : b).date;
+  document.getElementById('statAd').textContent     = adCount;
+  document.getElementById('statBrand').textContent  = brandCount;
+
+  const latestDate = ENTRIES.reduce((a,b) => a.day > b.day ? a : b).date;
   document.getElementById('lastUpdated').textContent = latestDate;
 }
 
