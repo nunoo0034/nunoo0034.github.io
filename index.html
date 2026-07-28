@@ -22,16 +22,16 @@
     font-display: swap;
   }
   :root{
-    --lime:#A6E639;
-    --lime-deep:#7CC22A;
-    --ink:#121212;
-    --paper:#F6F5EF;
+    --lime:#C6F136;
+    --lime-deep:#9BC71E;
+    --ink:#1D2030;
+    --paper:#F1F1F3;
     --card:#FFFFFF;
-    --muted:#6E6B62;
-    --line:#121212;
-    /* ✅ 2번 이미지 참고: 올리브영 핑크 컬러로 교체 */
-    --pink:#FFD6EC;
-    --pink-deep:#E8399A;
+    --muted:#6E6E78;
+    --line:#1D2030;
+    /* ✅ 업로드 이미지(amemmii) 참고: 바이올렛 컬러로 교체 */
+    --pink:#D9CFFF;
+    --pink-deep:#6C4CF1;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -89,24 +89,24 @@
   }
   h1.hero-title .line{display:block;}
   h1.hero-title .pop{
-    font-family:'Hakgyoansim Sonagi', 'Daon Cinema1','Black Han Sans', sans-serif;
-    font-size:1.5em; font-weight:700;
+    font-family:'Daon Cinema1','Black Han Sans', sans-serif;
+    font-size:1.5em; font-weight:400;
     display:inline-block; color:var(--pink-deep);
-    -webkit-text-stroke: 1.8px var(--ink);
+    -webkit-text-stroke: 3.8px var(--ink);
     paint-order: stroke fill;
     text-shadow: 5px 5px 0 var(--ink);
     transform-origin:left bottom;
-    margin-left:10px; line-height:1.05; vertical-align:middle;
+    margin-left:6px; line-height:1.05; vertical-align:middle;
     transform: rotate(-3deg);
-    animation: popIn .5s cubic-bezier(.34,1.56,.64,1) .15s backwards, popWobble .5s steps(1) .65s infinite alternate;
+    animation: popIn .5s cubic-bezier(.34,1.56,.64,1) .15s backwards, popWobble .4s steps(1) .65s infinite alternate;
   }
   @keyframes popIn{
     0%{ transform:rotate(0deg) scale(.7); opacity:0; }
     100%{ transform:rotate(-3deg) scale(1); opacity:1; }
   }
   @keyframes popWobble{
-    0%{ transform:rotate(-3deg); }
-    100%{ transform:rotate(-9deg); }
+    0%{ transform:rotate(-3deg) scale(1); }
+    100%{ transform:rotate(-6deg) scale(1.05); }
   }
 
   .hero-caption{
@@ -210,7 +210,7 @@
   .legend-card{ border:2px solid var(--ink); border-radius:10px; padding:18px 20px; }
   .legend-card.a{ background:var(--lime); color:var(--ink); }
   .legend-card.b{ background:var(--ink); color:var(--paper); }
-  /* ✅ 핑크로 교체 */
+  /* ✅ 바이올렛로 교체 */
   .legend-card.c{ background:var(--pink); color:var(--ink); }
   .legend-card .tag{
     display:inline-block; font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:700;
@@ -218,11 +218,11 @@
   }
   .legend-card.a .tag{ background:var(--ink); color:var(--lime); }
   .legend-card.b .tag{ background:var(--lime); color:var(--ink); }
-  /* ✅ 핑크 태그 */
+  /* ✅ 바이올렛 태그 */
   .legend-card.c .tag{ background:var(--pink-deep); color:#fff; }
   .legend-card ul{margin:0; padding-left:0; list-style:none; font-size:13.5px; line-height:1.95;}
   .legend-card b{font-weight:700;}
-  /* ✅ 핑크 구분 라벨 */
+  /* ✅ 바이올렛 구분 라벨 */
   .legend-card .divider-label{
     font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700;
     color:var(--pink-deep); letter-spacing:.05em; margin:10px 0 6px; display:block;
@@ -237,7 +237,7 @@
   }
   .filter-btn:hover{ background:var(--lime); }
   .filter-btn.active{ background:var(--ink); color:var(--lime); border-color:var(--ink); }
-  /* ✅ 핑크 필터 */
+  /* ✅ 바이올렛 필터 */
   .filter-btn[data-filter="brand3c"]:hover{ background:var(--pink); }
   .filter-btn[data-filter="brand3c"].active{ background:var(--pink-deep); color:#fff; border-color:var(--pink-deep); }
 
@@ -248,9 +248,9 @@
     cursor:pointer; transition:transform .15s ease;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 22px 100%, 0 calc(100% - 22px));
   }
-  .card:hover{ transform:translateY(-4px) rotate(-0.6deg); background:#FBFFF0; }
-  /* ✅ 핑크 카드 호버 */
-  .card.brand3c:hover{ background:#FFF0F8; }
+  .card:hover{ transform:translateY(-4px) rotate(-0.6deg); background:#FAFEE6; }
+  /* ✅ 바이올렛 카드 호버 */
+  .card.brand3c:hover{ background:#F2EEFF; }
   .card-top{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px; }
   .card-day{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:22px; color:var(--lime-deep); }
 
@@ -277,7 +277,7 @@
     color:var(--ink);
     border:1.5px solid var(--ink);
   }
-  /* ✅ 핑크 칩 */
+  /* ✅ 바이올렛 칩 */
   .chip.brand3c{
     background:var(--pink-deep);
     color:#fff;
@@ -305,7 +305,7 @@
     clip-path: polygon(0 0, calc(100% - 26px) 0, 100% 26px, 100% 100%, 0 100%);
   }
   .modal-head{ padding:30px 32px 22px; border-bottom:2.5px solid var(--ink); position:relative; background:var(--lime); }
-  /* ✅ 핑크 모달 헤더 */
+  /* ✅ 바이올렛 모달 헤더 */
   .modal-head.brand3c{ background:var(--pink); }
   .modal-close{
     position:absolute; top:16px; right:20px; background:var(--ink); color:var(--lime); border:none;
@@ -326,10 +326,10 @@
   .grid3{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:12px; }
   .block{ background:var(--paper); border:2px solid var(--ink); border-radius:8px; padding:14px 16px; }
   .block .k{ font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700; color:var(--lime-deep); margin-bottom:6px; letter-spacing:.03em; }
-  /* ✅ 핑크 블록 키 */
+  /* ✅ 바이올렛 블록 키 */
   .block .k.pink{ color:var(--pink-deep); }
   .block .v{ font-size:13.5px; line-height:1.7; color:var(--ink); }
-  /* ✅ 핑크 섹션 라벨 */
+  /* ✅ 바이올렛 섹션 라벨 */
   .modal-section-label{
     font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700;
     letter-spacing:.06em; color:var(--pink-deep);
