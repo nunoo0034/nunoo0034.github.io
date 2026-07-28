@@ -14,6 +14,13 @@
     src: url('./fonts/daon-cinema1.otf') format('opentype');
     font-display: swap;
   }
+  @font-face{
+    font-family:'Hakgyoansim Sonagi';
+    src: url('./fonts/HakgyoansimSonagiOTFR.otf') format('opentype'),
+         url('./fonts/HakgyoansimSonagiR.ttf') format('truetype');
+    font-weight:400;
+    font-display: swap;
+  }
   :root{
     --lime:#A6E639;
     --lime-deep:#7CC22A;
@@ -46,12 +53,28 @@
   .hero-wedge{
     position:absolute; inset:0; background:var(--paper);
     clip-path: polygon(0% 0%, 34% 0%, 12% 100%, 0% 100%);
+    animation: wedgeDrift 9s ease-in-out infinite;
   }
   .hero-wedge.two{
     background:var(--paper); opacity:.55;
     clip-path: polygon(58% 0%, 70% 0%, 46% 100%, 34% 100%);
+    animation: wedgeDrift 11s ease-in-out infinite reverse;
+  }
+  @keyframes wedgeDrift{
+    0%, 100%{ transform:translateX(0); }
+    50%{ transform:translateX(10px); }
   }
   .hero-inner{ position:relative; z-index:2; }
+  @keyframes riseIn{
+    0%{ opacity:0; transform:translateY(16px); }
+    100%{ opacity:1; transform:translateY(0); }
+  }
+  .eyebrow{ animation: riseIn .6s ease .05s both; }
+  h1.hero-title .line{ display:block; }
+  h1.hero-title{ animation: riseIn .6s ease .1s both; }
+  .hero-caption{ animation: riseIn .6s ease .35s both; }
+  p.lede{ animation: riseIn .6s ease .45s both; }
+  .stat-row{ animation: riseIn .6s ease .55s both; }
   .eyebrow{
     display:inline-flex; align-items:center; gap:8px;
     font-family:'Space Grotesk', sans-serif; font-size:13px; letter-spacing:.02em;
@@ -66,9 +89,24 @@
   }
   h1.hero-title .line{display:block;}
   h1.hero-title .pop{
-    display:inline-block; background:var(--ink); color:var(--pink-deep);
-    padding:2px 14px 6px; border-radius:6px;
-    transform:skewX(4deg) rotate(-2deg); margin-left:4px;
+    font-family:'Hakgyoansim Sonagi', 'Daon Cinema1','Black Han Sans', sans-serif;
+    font-size:1.5em; font-weight:700;
+    display:inline-block; color:var(--pink-deep);
+    -webkit-text-stroke: 1.8px var(--ink);
+    paint-order: stroke fill;
+    text-shadow: 5px 5px 0 var(--ink);
+    transform-origin:left bottom;
+    margin-left:10px; line-height:1.05; vertical-align:middle;
+    transform: rotate(-3deg);
+    animation: popIn .5s cubic-bezier(.34,1.56,.64,1) .15s backwards, popWobble .5s steps(1) .65s infinite alternate;
+  }
+  @keyframes popIn{
+    0%{ transform:rotate(0deg) scale(.7); opacity:0; }
+    100%{ transform:rotate(-3deg) scale(1); opacity:1; }
+  }
+  @keyframes popWobble{
+    0%{ transform:rotate(-3deg); }
+    100%{ transform:rotate(-9deg); }
   }
 
   .hero-caption{
@@ -81,6 +119,28 @@
     background:var(--paper); padding:18px 20px; border:2px solid var(--ink); border-radius:10px;
   }
   .stat-row{ display:flex; gap:12px; flex-wrap:wrap; }
+
+  /* ---------- 스트릭(연속 업데이트) ---------- */
+  .streak-wrap{ display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin:0 0 18px; animation: riseIn .6s ease .5s both; }
+  .streak-badge{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--pink-deep); color:#fff; border:2px solid var(--ink);
+    padding:9px 16px; border-radius:100px;
+    font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:700;
+  }
+  .streak-badge .flame{ display:inline-block; font-size:17px; animation: flamePulse 1.6s ease-in-out infinite; }
+  @keyframes flamePulse{
+    0%, 100%{ transform:scale(1); }
+    50%{ transform:scale(1.18) rotate(-4deg); }
+  }
+  .streak-dots{ display:flex; gap:6px; align-items:center; }
+  .streak-dot{
+    width:22px; height:22px; border-radius:50%;
+    border:2px solid var(--ink); display:flex; align-items:center; justify-content:center;
+    font-size:10px; background:var(--paper); color:var(--muted);
+  }
+  .streak-dot.filled{ background:var(--lime); color:var(--ink); }
+  .streak-dot.today{ box-shadow:0 0 0 2px var(--pink-deep); }
   .stat{
     background:var(--ink); color:var(--paper);
     border-radius:8px; padding:16px 20px; min-width:132px;
@@ -107,6 +167,43 @@
     margin-right:10px; display:inline-block;
   }
   .section-desc{font-family:'Space Grotesk',sans-serif; font-size:13px; color:var(--muted);}
+
+  /* ---------- 오늘의 추천 ---------- */
+  .pick-card{
+    border:2.5px solid var(--ink); border-radius:14px; background:var(--card);
+    padding:26px 28px; display:flex; gap:22px; align-items:flex-start; flex-wrap:wrap;
+    justify-content:space-between;
+  }
+  .pick-left{ flex:1; min-width:240px; }
+  .pick-badges{ display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap; }
+  .pick-badge{
+    font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700; letter-spacing:.03em;
+    padding:4px 10px; border-radius:5px; border:1.5px solid var(--ink);
+  }
+  .pick-badge.era-classic{ background:var(--ink); color:var(--lime); border-color:var(--ink); }
+  .pick-badge.era-trend{ background:var(--pink-deep); color:#fff; border-color:var(--pink-deep); }
+  .pick-badge.type{ background:var(--paper); color:var(--ink); }
+  .pick-name{
+    font-family:'Daon Cinema1','Black Han Sans', sans-serif; font-weight:400; font-size:26px;
+    margin:0 0 10px; line-height:1.3;
+  }
+  .pick-hook{ font-size:14.5px; line-height:1.7; color:#3a382f; margin:0; max-width:520px; }
+  .pick-actions{ display:flex; flex-direction:column; gap:10px; align-items:flex-end; }
+  .pick-btn{
+    font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:700; letter-spacing:.02em;
+    border:2px solid var(--ink); background:var(--lime); color:var(--ink);
+    padding:10px 18px; border-radius:100px; cursor:pointer; transition:.15s; white-space:nowrap;
+    text-decoration:none; display:inline-block; text-align:center;
+  }
+  .pick-btn:hover{ background:var(--ink); color:var(--lime); }
+  .pick-btn.ghost{ background:var(--paper); }
+  .pick-btn.ghost:hover{ background:var(--pink); color:var(--ink); }
+  .pick-meta{ font-family:'Space Grotesk',sans-serif; font-size:11px; color:var(--muted); text-align:right; }
+  @media(max-width:640px){
+    .pick-card{ flex-direction:column; }
+    .pick-actions{ align-items:flex-start; width:100%; }
+    .pick-btn{ width:100%; text-align:center; }
+  }
 
   /* ---------- framework legend ---------- */
   .legend-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-bottom:8px;}
@@ -191,9 +288,8 @@
     font-family:'Daon Cinema1','Black Han Sans', sans-serif; font-weight:400;
     font-size:21px; margin:0 0 8px; line-height:1.25;
   }
-
-  }
   .card .hook{ font-size:13.5px; color:var(--muted); margin:0; line-height:1.6; }
+  .link-dot{ font-size:13px; vertical-align:middle; opacity:.75; }
   .empty-state{ padding:60px 28px; text-align:center; color:var(--muted); font-size:14px; grid-column:1/-1; }
 
   /* ---------- modal ---------- */
@@ -218,6 +314,12 @@
   .modal-eyebrow{ font-family:'Space Grotesk',sans-serif; font-size:12px; color:var(--ink); margin-bottom:10px; font-weight:700; }
   .modal-head h3{ font-family:'Daon Cinema1','Black Han Sans',sans-serif; font-weight:400; font-size:27px; margin:0 0 8px; }
   .modal-head .target{ font-size:13.5px; color:var(--ink); }
+  .source-btn{
+    display:inline-block; margin-top:14px; font-size:12.5px; font-weight:700; letter-spacing:.02em;
+    background:var(--ink); color:var(--paper); border:1.5px solid var(--ink);
+    padding:8px 14px; border-radius:100px; text-decoration:none;
+  }
+  .source-btn:hover{ background:var(--paper); color:var(--ink); }
   .modal-body{ padding:26px 32px 34px; }
   .modal-body p{ font-size:14.5px; line-height:1.85; color:#2b2a26; margin:0 0 20px; }
   .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; }
@@ -267,6 +369,7 @@
     </h1>
     <span class="hero-caption cap">by 누누</span>
     <p class="lede">유튜브 콘텐츠 마케팅 직무를 준비하며 시작한 나홀로 챌린지 기록입니다. 하루에 광고 또는 브랜드 하나를 골라 4C·4P 프레임워크로 뜯어보고, 이곳에 한 장씩 쌓아갑니다.</p>
+    <div class="streak-wrap" id="streakWrap"></div>
     <div class="stat-row">
       <div class="stat"><div class="num cap" id="statTotal">-</div><div class="label">누적 분석</div></div>
       <div class="stat"><div class="num cap" id="statStreak">-</div><div class="label">진행 Day</div></div>
@@ -278,9 +381,17 @@
 <div class="cut-divider"></div>
 
 <div class="wrap">
+  <section class="section" id="pick">
+    <div class="section-head">
+      <h2 class="section-title"><span class="idx">00 /</span>오늘의 추천</h2>
+      <div class="section-desc">매일 자동으로 하나씩 골라줘요 — 직접 고르지 않아도 됩니다.</div>
+    </div>
+    <div class="pick-card" id="pickCard"></div>
+  </section>
+
   <section class="section">
     <div class="section-head">
-      <h2 class="section-title"><span class="idx">00 /</span>분석 프레임워크</h2>
+      <h2 class="section-title"><span class="idx">01 /</span>분석 프레임워크</h2>
       <div class="section-desc">광고를 볼 땐 4C, 브랜드를 볼 땐 4P 또는 3C+4P를 렌즈로 사용합니다.</div>
     </div>
     <div class="legend-grid">
@@ -322,7 +433,7 @@
 
   <section class="section" id="archive">
     <div class="section-head">
-      <h2 class="section-title"><span class="idx">01 /</span>분석 아카이브</h2>
+      <h2 class="section-title"><span class="idx">02 /</span>분석 아카이브</h2>
       <div class="section-desc">카드를 클릭하면 전체 분석을 볼 수 있어요.</div>
     </div>
     <div class="filter-bar" id="filterBar">
@@ -360,8 +471,71 @@
    type: "ad"      → 광고 분석 (4C)       : c1~c4
    type: "brand"   → 브랜드 분석 ver.1    : p1~p4
    type: "brand3c" → 브랜드 분석 ver.2    : s_company, s_customer, s_competitor + p1~p4
+   link (선택)      → 실제로 본 광고/콘텐츠 링크. 있으면 카드·모달에
+                      "🔗 원본 보기" 버튼이 자동으로 나타납니다. (없으면 버튼 자체가 안 보임)
    ========================================================= */
 const ENTRIES = [
+
+  // ════════════════════════════════════════════════════════
+  // 📋 매일 이렇게 추가하세요: 아래 3개 템플릿 중 하나를 통째로 복사해서
+  //    바로 아래(ENTRIES 배열 맨 앞)에 붙여넣고 " " 안의 내용만 채우면 끝!
+  //    day 숫자는 기존 항목보다 +1, date는 오늘 날짜로 바꿔주세요.
+  // ════════════════════════════════════════════════════════
+
+  // ── [템플릿 A] 광고 분석 · 4C ──────────────────────────────
+  // {
+  //   day: 5,
+  //   date: "2026-07-30",
+  //   type: "ad",
+  //   brand: "브랜드/광고명",
+  //   hook: "카드 목록에 보일 한 줄 요약",
+  //   target: "이 광고가 겨냥하는 타겟층",
+  //   overview: "광고 개요 — 무슨 내용이고 어떤 톤인지 (2~4문장)",
+  //   c1: "Customer — 누구를 향한 메시지인가",
+  //   c2: "Cost — 소비자가 지불하는 것(돈·시간·심리)",
+  //   c3: "Convenience — 어디서, 얼마나 쉽게 닿는가",
+  //   c4: "Communication — 어떤 어조로 설득하는가",
+  //   insight: "왜 이렇게 만들었을까 + 오늘 배운 점",
+  //   link: "https://www.youtube.com/watch?v=여기에영상주소"   // 없으면 이 줄 통째로 삭제
+  // },
+
+  // ── [템플릿 B] 브랜드 분석 · 4P ─────────────────────────────
+  // {
+  //   day: 5,
+  //   date: "2026-07-30",
+  //   type: "brand",
+  //   brand: "브랜드명",
+  //   hook: "카드 목록에 보일 한 줄 요약",
+  //   target: "이 브랜드가 겨냥하는 타겟층",
+  //   overview: "브랜드 개요 — 무엇을 파는 브랜드인지 (2~4문장)",
+  //   p1: "Product — 무엇을 파는가, 핵심 가치는",
+  //   p2: "Price — 가격이 포지셔닝에 주는 신호",
+  //   p3: "Place — 어떤 채널·맥락에서 만나는가",
+  //   p4: "Promotion — 어떻게 존재를 알리는가",
+  //   insight: "왜 이렇게 만들었을까 + 오늘 배운 점",
+  //   link: "https://여기에관련링크"   // 없으면 이 줄 통째로 삭제
+  // },
+
+  // ── [템플릿 C] 브랜드 분석 · 3C+4P (심화) ───────────────────
+  // {
+  //   day: 5,
+  //   date: "2026-07-30",
+  //   type: "brand3c",
+  //   brand: "브랜드명",
+  //   hook: "카드 목록에 보일 한 줄 요약",
+  //   target: "이 브랜드가 겨냥하는 타겟층",
+  //   overview: "브랜드 개요 — 왜 이 브랜드를 골랐는지 (2~4문장)",
+  //   s_company:    "Company — 자사의 강점·약점·핵심 역량",
+  //   s_customer:   "Customer — 타깃 고객, 니즈와 행동 패턴",
+  //   s_competitor: "Competitor — 경쟁자의 전략과 포지셔닝",
+  //   p1: "Product — 경쟁 구도 속 제품의 차별점",
+  //   p2: "Price — 시장 내 가격 포지셔닝의 의미",
+  //   p3: "Place — 고객 접점 전략의 맥락",
+  //   p4: "Promotion — 경쟁 대비 커뮤니케이션 방향",
+  //   insight: "왜 이렇게 만들었을까 + 오늘 배운 점",
+  //   link: "https://여기에관련링크"   // 없으면 이 줄 통째로 삭제
+  // },
+  // ════════════════════════════════════════════════════════
 
   {
     day: 1,
@@ -411,6 +585,89 @@ const ENTRIES = [
   }
 ];
 
+/* =========================================================
+   오늘의 추천 — 자동 큐레이션 풀
+   era: "classic"(예전 유명 사례) / "trend"(요즘 화제)
+   type: "ad"(광고 위주) / "brand"(브랜드 위주)
+   ========================================================= */
+const POOL = [
+  { name:"나이키 'Just Do It' 캠페인", era:"classic", type:"ad", hook:"단순한 슬로건 하나로 브랜드 정신 자체를 만든 스포츠 광고의 교과서." },
+  { name:"애플 매킨토시 출시 광고(1984)", era:"classic", type:"ad", hook:"제품 설명 없이 하나의 은유만으로 신제품 출시를 알린 광고사 최고 화제작.", link:"https://www.youtube.com/watch?v=OYecfV3ubP8" },
+  { name:"드비어스 다이아몬드 캠페인", era:"classic", type:"ad", hook:"카피 하나가 특정 소비 관습 자체를 새로 만들어낸 사례." },
+  { name:"도브 '리얼 뷰티' 캠페인", era:"classic", type:"ad", hook:"업계의 기존 미의 기준에 정면으로 반박한 브랜드 메시지 전환 사례.", link:"https://www.youtube.com/watch?v=pOq71eKI5Mg" },
+  { name:"올드스파이스 남성 바디워시 캠페인", era:"classic", type:"ad", hook:"올드한 브랜드 이미지를 유머 하나로 뒤집은 리브랜딩 광고.", link:"https://www.youtube.com/watch?v=owGykVbfgUE" },
+  { name:"이케아의 실용주의 광고 톤", era:"classic", type:"brand", hook:"화려함 대신 '있는 그대로'를 보여주는 것 자체가 브랜드 전략이 된 사례." },
+  { name:"배달의민족 카피 시리즈", era:"classic", type:"ad", hook:"'우리가 어떤 민족입니까' 등 한국적 유머로 배달 서비스의 톤을 만든 사례." },
+  { name:"오뚜기 '갓뚜기' 이미지 형성", era:"classic", type:"brand", hook:"광고가 아니라 기업 행보 자체가 브랜드 이미지를 만든 케이스." },
+  { name:"빙그레우스 캐릭터 마케팅", era:"classic", type:"brand", hook:"오래된 식품 브랜드가 세계관 캐릭터로 젊은 세대와 다시 연결된 사례." },
+  { name:"진로 참이슬 브랜드 변천사", era:"classic", type:"brand", hook:"수십 년간 라벨·톤이 세대에 맞춰 어떻게 바뀌어왔는지 보여주는 사례." },
+  { name:"대한항공 'Excellence in Flight' 캠페인", era:"classic", type:"ad", hook:"프리미엄 항공사가 신뢰와 품격을 시각적으로 설득하는 방식." },
+  { name:"카카오프렌즈 캐릭터 마케팅", era:"classic", type:"brand", hook:"메신저 기능을 캐릭터 IP 비즈니스로 확장시킨 사례." },
+  { name:"포켓몬빵 재출시 마케팅", era:"classic", type:"brand", hook:"추억 마케팅이 실제 품절 대란까지 만든 뉴트로 열풍의 대표 사례." },
+  { name:"버거킹 vs 맥도날드 신경전 광고", era:"classic", type:"ad", hook:"경쟁사를 직접 저격하며 화제성을 만든 대결 구도 마케팅." },
+  { name:"정관장 홍삼 광고 시리즈", era:"classic", type:"ad", hook:"전통 건강식품이 세대별로 메시지를 어떻게 바꿔왔는지 보여주는 사례." },
+
+  { name:"닥터페퍼 'DPTS' 캠페인", era:"trend", type:"ad", hook:"SNS에서 자연 발생한 팬 콘텐츠를 그대로 광고로 전환한 서사 마케팅.", link:"https://www.youtube.com/watch?v=Wcua0DMG3mw" },
+  { name:"두끼아티스트 레시피 캠페인", era:"trend", type:"brand", hook:"유저가 만든 레시피 밈을 브랜드가 공식 캠페인으로 흡수한 국내 사례." },
+  { name:"디올 커스텀 드레스 제작 과정 콘텐츠", era:"trend", type:"brand", hook:"완성품이 아니라 '만들어지는 과정'을 공개해 장인정신을 증명하는 방식." },
+  { name:"편의점 브랜드 굿즈 콜라보", era:"trend", type:"brand", hook:"다이어리·텀블러 같은 실물 굿즈로 소속감을 파는 최근 유통 전략." },
+  { name:"올리브영 오프라인 매장 확장 전략", era:"trend", type:"brand", hook:"온라인이 대세인 시대에 오히려 오프라인 체험을 강화하는 역발상." },
+  { name:"스타벅스 시즌 한정 굿즈 오픈런", era:"trend", type:"brand", hook:"한정판 굿즈로 '지금 아니면 못 산다'는 긴급성을 설계하는 방식." },
+  { name:"무신사·컬리의 숏폼 라이브커머스 확장", era:"trend", type:"brand", hook:"영상 시청이 곧바로 구매로 이어지도록 설계된 최신 커머스 흐름." },
+  { name:"최근 SNS에서 화제였던 밈 기반 브랜드 챌린지 직접 찾아보기", era:"trend", type:"ad", hook:"오늘 SNS를 스크롤하다 마주친 브랜드 콘텐츠 중 가장 인상 깊었던 것 하나를 직접 골라 분석해보는 미션." },
+  { name:"최근 화제가 된 팝업스토어 하나 직접 찾아보기", era:"trend", type:"brand", hook:"요즘 뜨는 팝업스토어의 공간 기획을 직접 조사해 브랜드 전략으로 해석해보는 미션." }
+];
+
+function hashDate(str){
+  let h = 0;
+  for(let i = 0; i < str.length; i++){ h = (h * 31 + str.charCodeAt(i)) >>> 0; }
+  return h;
+}
+function todayStr(){
+  const d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+function alreadyAnalyzed(name){
+  return ENTRIES.some(e => e.brand && (e.brand.includes(name) || name.includes(e.brand)));
+}
+function eraLabel(e){ return e === 'classic' ? '레트로 클래식' : '요즘 화제'; }
+function typeLabelPick(t){ return t === 'ad' ? '광고 위주' : '브랜드 위주'; }
+
+let pickIndex = null;
+function pickToday(forceRandom){
+  const available = POOL.map((_, i) => i).filter(i => !alreadyAnalyzed(POOL[i].name));
+  const pool = available.length ? available : POOL.map((_, i) => i);
+  if(forceRandom){
+    let next;
+    do{ next = pool[Math.floor(Math.random() * pool.length)]; }while(pool.length > 1 && next === pickIndex);
+    pickIndex = next;
+  } else {
+    const seed = hashDate(todayStr());
+    pickIndex = pool[seed % pool.length];
+  }
+  renderPick();
+}
+
+function renderPick(){
+  const p = POOL[pickIndex];
+  const pickCard = document.getElementById('pickCard');
+  pickCard.innerHTML =
+    '<div class="pick-left">' +
+      '<div class="pick-badges">' +
+        '<span class="pick-badge era-' + p.era + '">' + eraLabel(p.era) + '</span>' +
+        '<span class="pick-badge type">' + typeLabelPick(p.type) + '</span>' +
+      '</div>' +
+      '<p class="pick-name">' + p.name + '</p>' +
+      '<p class="pick-hook">' + p.hook + '</p>' +
+    '</div>' +
+    '<div class="pick-actions">' +
+      (p.link ? '<a class="pick-btn" href="' + p.link + '" target="_blank" rel="noopener">▶ 광고 바로보기</a>' : '') +
+      '<button class="pick-btn ghost" id="rerollBtn">🔀 다른 추천 보기</button>' +
+      '<span class="pick-meta">TODAY — ' + todayStr() + '</span>' +
+    '</div>';
+  document.getElementById('rerollBtn').addEventListener('click', () => pickToday(true));
+}
+
 /* ========================================================= */
 
 const grid = document.getElementById('grid');
@@ -440,7 +697,7 @@ function render(){
         '<span class="card-day cap">DAY ' + String(e.day).padStart(3,'0') + '</span>' +
         '<span class="chip ' + e.type + '">' + typeLabel(e.type) + '</span>' +
       '</div>' +
-      '<p class="brand">' + e.brand + '</p>' +
+      '<p class="brand">' + e.brand + (e.link ? ' <span class="link-dot cap" title="원본 링크 있음">🔗</span>' : '') + '</p>' +
       '<p class="hook">' + e.hook + '</p>';
     card.addEventListener('click', () => openModal(e));
     grid.appendChild(card);
@@ -489,6 +746,7 @@ function openModal(e){
       '<div class="modal-eyebrow cap">DAY ' + String(e.day).padStart(3,'0') + ' · ' + e.date + ' · ' + typeLabel(e.type) + '</div>' +
       '<h3>' + e.brand + '</h3>' +
       '<div class="target">타겟 &nbsp;' + e.target + '</div>' +
+      (e.link ? '<a class="source-btn cap" href="' + e.link + '" target="_blank" rel="noopener">🔗 원본 광고/콘텐츠 보기</a>' : '') +
     '</div>' +
     '<div class="modal-body">' +
       '<p>' + e.overview + '</p>' +
@@ -529,8 +787,48 @@ function updateStats(){
   document.getElementById('lastUpdated').textContent = latestDate;
 }
 
+/* ---------- 스트릭(연속 업데이트) ---------- */
+function toDateObj(str){
+  const [y, m, d] = str.split('-').map(Number);
+  return new Date(y, m - 1, d);
+}
+function fmtDate(d){
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+function computeStreak(){
+  const dateSet = new Set(ENTRIES.map(e => e.date));
+  const dates = [...dateSet].sort().reverse();
+  if(dates.length === 0) return { streak:0, latest:null, dateSet };
+  let streak = 1;
+  let cur = toDateObj(dates[0]);
+  for(let i = 1; i < dates.length; i++){
+    const prev = new Date(cur); prev.setDate(prev.getDate() - 1);
+    if(fmtDate(prev) === dates[i]){ streak++; cur = prev; } else break;
+  }
+  return { streak, latest: dates[0], dateSet };
+}
+function renderStreak(){
+  const { streak, latest, dateSet } = computeStreak();
+  const anchor = latest ? toDateObj(latest) : new Date();
+  const weekday = ['일','월','화','수','목','금','토'];
+  let dots = '';
+  for(let i = 6; i >= 0; i--){
+    const d = new Date(anchor); d.setDate(d.getDate() - i);
+    const dStr = fmtDate(d);
+    const filled = dateSet.has(dStr);
+    const isAnchor = dStr === latest;
+    dots += '<span class="streak-dot' + (filled ? ' filled' : '') + (isAnchor ? ' today' : '') +
+      '" title="' + dStr + (filled ? ' · 업데이트함' : '') + '">' + weekday[d.getDay()] + '</span>';
+  }
+  document.getElementById('streakWrap').innerHTML =
+    '<span class="streak-badge"><span class="flame">🔥</span>' + streak + '일 연속 업데이트</span>' +
+    '<div class="streak-dots">' + dots + '</div>';
+}
+
 updateStats();
 render();
+pickToday(false);
+renderStreak();
 </script>
 
 </body>
