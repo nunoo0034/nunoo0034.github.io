@@ -65,6 +65,7 @@
     50%{ transform:translateX(10px); }
   }
   .hero-inner{ position:relative; z-index:2; }
+  .ballpit{ position:absolute; inset:0; z-index:1; pointer-events:none; display:block; }
   @keyframes riseIn{
     0%{ opacity:0; transform:translateY(16px); }
     100%{ opacity:1; transform:translateY(0); }
@@ -361,6 +362,7 @@
 <section class="hero">
   <div class="hero-wedge"></div>
   <div class="hero-wedge two"></div>
+  <canvas id="ballpit" class="ballpit"></canvas>
   <div class="wrap hero-inner">
     <span class="eyebrow"><span class="dot"></span>DAILY AD BREAKDOWN · SELF CHALLENGE</span>
     <h1 class="hero-title">
@@ -825,10 +827,173 @@ function renderStreak(){
     '<div class="streak-dots">' + dots + '</div>';
 }
 
+/* ---------- 볼풀(아카이브 시각화) ---------- */
+function initBallpit(){
+  const canvas = document.getElementById('ballpit');
+  if(!canvas) return;
+  const heroEl = canvas.closest('.hero');
+  const ctx = canvas.getContext('2d');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const cs = getComputedStyle(document.documentElement);
+  const inkColor = cs.getPropertyValue('--ink').trim() || '#1D2030';
+  const palette = [
+    cs.getPropertyValue('--lime').trim() || '#C6F136',
+    cs.getPropertyValue('--pink-deep').trim() || '#6C4CF1',
+    inkColor,
+    '#FFFFFF'
+  ];
+
+  let W = 0, H = 0;
+  const DPR = Math.min(window.devicePixelRatio || 1, 2);
+
+  function resize(){
+    W = heroEl.clientWidth;
+    H = heroEl.clientHeight;
+    canvas.width = Math.max(W * DPR, 1);
+    canvas.height = Math.max(H * DPR, 1);
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const count = Math.min(Math.max(ENTRIES.length, 1), 120);
+  const balls = [];
+  for(let i = 0; i < count; i++){
+    const r = 9;
+    balls.push({
+      x: r + Math.random() * Math.max(W - r * 2, 10),
+      y: -40 - Math.random() * (200 + i * 26),
+      vx: (Math.random() - 0.5) * 1.4,
+      vy: 0,
+      r,
+      color: palette[i % palette.length]
+    });
+  }
+
+  const GRAVITY = 0.42;
+  const WALL_DAMP = 0.66;
+  const FLOOR_DAMP = 0.58;
+  const FRICTION = 0.99;
+  const REPEL_RADIUS = 55;
+  const REPEL_STRENGTH = 0.55;
+  const mouse = { x:-9999, y:-9999, active:false };
+
+  function resolveCollisions(){
+    for(let i = 0; i < balls.length; i++){
+      for(let j = i + 1; j < balls.length; j++){
+        const a = balls[i], b = balls[j];
+        const dx = b.x - a.x, dy = b.y - a.y;
+        const dist = Math.sqrt(dx * dx + dy * dy) || 0.01;
+        const minDist = a.r + b.r;
+        if(dist < minDist){
+          const overlap = (minDist - dist) / 2;
+          const nx = dx / dist, ny = dy / dist;
+          a.x -= nx * overlap; a.y -= ny * overlap;
+          b.x += nx * overlap; b.y += ny * overlap;
+          const avx = (a.vx + b.vx) / 2, avy = (a.vy + b.vy) / 2;
+          a.vx = avx; a.vy = avy * 0.55;
+          b.vx = avx; b.vy = avy * 0.55;
+        }
+      }
+    }
+  }
+
+  function draw(){
+    ctx.clearRect(0, 0, W, H);
+    balls.forEach(b => {
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+      ctx.fillStyle = b.color;
+      ctx.fill();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = inkColor;
+      ctx.stroke();
+    });
+  }
+
+  function step(){
+    balls.forEach(b => {
+      b.vy += GRAVITY;
+      b.x += b.vx;
+      b.y += b.vy;
+      b.vx *= FRICTION;
+
+      if(mouse.active){
+        const dx = b.x - mouse.x, dy = b.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy) || 0.01;
+        const minDist = REPEL_RADIUS + b.r;
+        if(dist < minDist){
+          const force = (1 - dist / minDist) * REPEL_STRENGTH;
+          b.vx += (dx / dist) * force;
+          b.vy += (dy / dist) * force;
+        }
+      }
+
+      const speed = Math.sqrt(b.vx * b.vx + b.vy * b.vy);
+      const MAX_SPEED = 5.5;
+      if(speed > MAX_SPEED){
+        b.vx = (b.vx / speed) * MAX_SPEED;
+        b.vy = (b.vy / speed) * MAX_SPEED;
+      }
+
+      if(b.x - b.r < 0){ b.x = b.r; b.vx *= -WALL_DAMP; }
+      if(b.x + b.r > W){ b.x = W - b.r; b.vx *= -WALL_DAMP; }
+      if(b.y + b.r > H){
+        b.y = H - b.r; b.vy *= -FLOOR_DAMP;
+        if(Math.abs(b.vy) < 0.6) b.vy = 0;
+      }
+    });
+    resolveCollisions();
+    draw();
+    requestAnimationFrame(step);
+  }
+
+  if(reduceMotion){
+    balls.forEach((b, i) => { b.y = H - b.r - (i % 6) * (b.r * 1.7); });
+    resolveCollisions();
+    draw();
+    return;
+  }
+
+  requestAnimationFrame(step);
+
+  let lastScrollY = window.scrollY;
+  window.addEventListener('scroll', () => {
+    const dy = window.scrollY - lastScrollY;
+    lastScrollY = window.scrollY;
+    const kick = Math.max(-2.5, Math.min(2.5, dy * 0.06));
+    balls.forEach(b => {
+      b.vy += kick * (0.2 + Math.random() * 0.25);
+      b.vx += (Math.random() - 0.5) * Math.abs(kick) * 0.15;
+    });
+  }, { passive: true });
+
+  heroEl.addEventListener('mousemove', (ev) => {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = ev.clientX - rect.left;
+    mouse.y = ev.clientY - rect.top;
+    mouse.active = true;
+  });
+  heroEl.addEventListener('mouseleave', () => { mouse.active = false; });
+  heroEl.addEventListener('touchmove', (ev) => {
+    if(!ev.touches || !ev.touches[0]) return;
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = ev.touches[0].clientX - rect.left;
+    mouse.y = ev.touches[0].clientY - rect.top;
+    mouse.active = true;
+  }, { passive: true });
+  heroEl.addEventListener('touchend', () => { mouse.active = false; });
+}
+
+
 updateStats();
 render();
 pickToday(false);
 renderStreak();
+initBallpit();
 </script>
 
 </body>
