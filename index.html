@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>매일 하나, 광고를 파헤친다 — 나홀로 마케팅 분석 챌린지</title>
+<title>매일 하나, 브랜드를 파헤친다 — 나홀로 마케팅 분석 챌린지</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
@@ -284,6 +284,12 @@
     color:#fff;
     border:1.5px solid var(--pink-deep);
   }
+  /* ✅ 브랜드 콘텐츠 칩 — 아웃라인으로 구분 */
+  .chip.content{
+    background:var(--paper);
+    color:var(--ink);
+    border:1.5px solid var(--ink);
+  }
 
   .card p.brand{
     font-family:'Daon Cinema1','Black Han Sans', sans-serif; font-weight:400;
@@ -364,18 +370,19 @@
   <div class="hero-wedge two"></div>
   <canvas id="ballpit" class="ballpit"></canvas>
   <div class="wrap hero-inner">
-    <span class="eyebrow"><span class="dot"></span>DAILY AD BREAKDOWN · SELF CHALLENGE</span>
+    <span class="eyebrow"><span class="dot"></span>DAILY BRAND BREAKDOWN · SELF CHALLENGE</span>
     <h1 class="hero-title">
       <span class="line">크리에이티브</span>
-      <span class="line">광고 <span class="pop">뜯어보기</span></span>
+      <span class="line">브랜드 <span class="pop">뜯어보기</span></span>
     </h1>
     <span class="hero-caption cap">by 누누</span>
-    <p class="lede">유튜브 콘텐츠 마케팅 직무를 준비하며 시작한 나홀로 챌린지 기록입니다. 하루에 광고 또는 브랜드 하나를 골라 4C·4P 프레임워크로 뜯어보고, 이곳에 한 장씩 쌓아갑니다.</p>
+    <p class="lede">유튜브 콘텐츠 마케팅 직무를 준비하며 시작한 나홀로 챌린지 기록입니다. 하루에 광고, 브랜드, 브랜드 콘텐츠 중 하나를 골라 4C·4P 프레임워크로 뜯어보고, 이곳에 한 장씩 쌓아갑니다.</p>
     <div class="streak-wrap" id="streakWrap"></div>
     <div class="stat-row">
       <div class="stat"><div class="num cap" id="statTotal">-</div><div class="label">누적 분석</div></div>
       <div class="stat"><div class="num cap" id="statStreak">-</div><div class="label">진행 Day</div></div>
       <div class="stat"><div class="num cap" id="statAd">-</div><div class="label">광고 분석</div></div>
+      <div class="stat"><div class="num cap" id="statContent">-</div><div class="label">브랜드 콘텐츠</div></div>
       <div class="stat"><div class="num cap" id="statBrand">-</div><div class="label">브랜드 분석</div></div>
     </div>
   </div>
@@ -394,11 +401,11 @@
   <section class="section">
     <div class="section-head">
       <h2 class="section-title"><span class="idx">01 /</span>분석 프레임워크</h2>
-      <div class="section-desc">광고를 볼 땐 4C, 브랜드를 볼 땐 4P 또는 3C+4P를 렌즈로 사용합니다.</div>
+      <div class="section-desc">광고·브랜드 콘텐츠를 볼 땐 4C, 브랜드 자체를 볼 땐 4P 또는 3C+4P를 렌즈로 사용합니다.</div>
     </div>
     <div class="legend-grid">
       <div class="legend-card a">
-        <span class="tag">4C · 광고 분석용</span>
+        <span class="tag">4C · 광고 / 브랜드 콘텐츠 분석용</span>
         <ul>
           <li><b>Customer —</b> 누구를 향한 메시지인가</li>
           <li><b>Cost —</b> 소비자가 지불하는 것(돈·시간·심리)</li>
@@ -441,6 +448,7 @@
     <div class="filter-bar" id="filterBar">
       <button class="filter-btn active" data-filter="all">전체</button>
       <button class="filter-btn" data-filter="ad">광고 분석 (4C)</button>
+      <button class="filter-btn" data-filter="content">브랜드 콘텐츠 (4C)</button>
       <button class="filter-btn" data-filter="brand">브랜드 분석 (4P)</button>
       <button class="filter-btn" data-filter="brand3c">브랜드 분석 (3C+4P)</button>
     </div>
@@ -450,7 +458,7 @@
   <footer>
     <div class="foot-grid">
       <div>
-        <div class="brand-mark">DAILY AD BREAKDOWN</div>
+        <div class="brand-mark">DAILY BRAND BREAKDOWN</div>
         <p class="foot-note">코멘토 · 더나은인재들 드림버스컴퍼니 유튜브 콘텐츠 마케팅 과정을 계기로 시작한 개인 학습 챌린지입니다. 매일 업데이트됩니다.</p>
       </div>
       <div class="foot-meta">
@@ -470,8 +478,9 @@
 /* =========================================================
    데이터 입력 가이드
    ─────────────────────────────────────────────────────────
-   type: "ad"      → 광고 분석 (4C)       : c1~c4
-   type: "brand"   → 브랜드 분석 ver.1    : p1~p4
+   type: "ad"      → 광고 분석 (4C)        : c1~c4
+   type: "content" → 브랜드 콘텐츠 분석 (4C) : c1~c4  (캠페인·이벤트·매거진 등 광고가 아닌 콘텐츠)
+   type: "brand"   → 브랜드 분석 ver.1 (4P) : p1~p4
    type: "brand3c" → 브랜드 분석 ver.2    : s_company, s_customer, s_competitor + p1~p4
    link (선택)      → 실제로 본 광고/콘텐츠 링크. 있으면 카드·모달에
                       "🔗 원본 보기" 버튼이 자동으로 나타납니다. (없으면 버튼 자체가 안 보임)
@@ -479,7 +488,7 @@
 const ENTRIES = [
 
   // ════════════════════════════════════════════════════════
-  // 📋 매일 이렇게 추가하세요: 아래 3개 템플릿 중 하나를 통째로 복사해서
+  // 📋 매일 이렇게 추가하세요: 아래 4개 템플릿 중 하나를 통째로 복사해서
   //    바로 아래(ENTRIES 배열 맨 앞)에 붙여넣고 " " 안의 내용만 채우면 끝!
   //    day 숫자는 기존 항목보다 +1, date는 오늘 날짜로 바꿔주세요.
   // ════════════════════════════════════════════════════════
@@ -499,6 +508,23 @@ const ENTRIES = [
   //   c4: "Communication — 어떤 어조로 설득하는가",
   //   insight: "왜 이렇게 만들었을까 + 오늘 배운 점",
   //   link: "https://www.youtube.com/watch?v=여기에영상주소"   // 없으면 이 줄 통째로 삭제
+  // },
+
+  // ── [템플릿 D] 브랜드 콘텐츠 분석 · 4C (캠페인·이벤트·매거진 등) ──
+  // {
+  //   day: 5,
+  //   date: "2026-07-30",
+  //   type: "content",
+  //   brand: "브랜드명 · 콘텐츠/캠페인명",
+  //   hook: "카드 목록에 보일 한 줄 요약",
+  //   target: "이 콘텐츠가 겨냥하는 타겟층",
+  //   overview: "콘텐츠 개요 — 무슨 기획이고 왜 만들었는지 (2~4문장)",
+  //   c1: "Customer — 누구를 향한 콘텐츠인가",
+  //   c2: "Cost — 참여/소비에 드는 시간·심리적 비용",
+  //   c3: "Convenience — 어디서, 얼마나 쉽게 접하고 참여하는가",
+  //   c4: "Communication — 광고가 아닌 콘텐츠라서 가능한 어조·형식",
+  //   insight: "왜 '광고'가 아니라 '콘텐츠'로 만들었을까 + 오늘 배운 점",
+  //   link: "https://여기에관련링크"   // 없으면 이 줄 통째로 삭제
   // },
 
   // ── [템플릿 B] 브랜드 분석 · 4P ─────────────────────────────
@@ -538,6 +564,22 @@ const ENTRIES = [
   //   link: "https://여기에관련링크"   // 없으면 이 줄 통째로 삭제
   // },
   // ════════════════════════════════════════════════════════
+
+  {
+    day: 4,
+    date: "2026-07-29",
+    type: "content",
+    brand: "배달의민족 · 배민 신춘문예",
+    hook: "광고 카피 대신 '글쓰기 대회'로 브랜드 언어를 팬들에게서 직접 얻어내는 콘텐츠",
+    target: "배민 특유의 B급 유머·언어유희를 즐기는 2030 팬층 및 카피라이터 지망생",
+    overview: "매년 신춘문예 형식을 패러디해 '치킨은 살 안 쪄요' 류의 배달 음식 소재 글쓰기를 공모하는 이벤트. 브랜드가 카피를 만드는 게 아니라, 브랜드의 언어를 좋아하는 사람들이 직접 카피를 만들게 하는 구조.",
+    c1: "브랜드 톤을 이미 좋아하고 따라 하고 싶어하는 팬 커뮤니티",
+    c2: "참가자 입장에선 상금·등단 재미라는 보상이 있어 시간 투자 대비 참여 장벽이 낮음",
+    c3: "매년 정해진 시즌(연말연시)에 SNS·자사 채널로만 접수해도 화제성이 알아서 퍼짐",
+    c4: "브랜드가 말하지 않고 '팬들이 브랜드처럼 말하게' 만드는 참여형 화법",
+    insight: "광고가 브랜드의 언어를 '전달'하는 거라면, 이런 콘텐츠는 브랜드의 언어를 '증식'시키는 방식이라는 걸 배웠다. 매년 반복되는 포맷이라 브랜드 자산으로 쌓인다는 점도 인상적이었다.",
+    link: "https://www.baemin.com/shinchoon"
+  },
 
   {
     day: 3,
@@ -590,7 +632,7 @@ const ENTRIES = [
 /* =========================================================
    오늘의 추천 — 자동 큐레이션 풀
    era: "classic"(예전 유명 사례) / "trend"(요즘 화제)
-   type: "ad"(광고 위주) / "brand"(브랜드 위주)
+   type: "ad"(광고 위주) / "content"(브랜드 콘텐츠 위주) / "brand"(브랜드 위주)
    ========================================================= */
 const POOL = [
   { name:"나이키 'Just Do It' 캠페인", era:"classic", type:"ad", hook:"단순한 슬로건 하나로 브랜드 정신 자체를 만든 스포츠 광고의 교과서." },
@@ -602,16 +644,22 @@ const POOL = [
   { name:"배달의민족 카피 시리즈", era:"classic", type:"ad", hook:"'우리가 어떤 민족입니까' 등 한국적 유머로 배달 서비스의 톤을 만든 사례." },
   { name:"오뚜기 '갓뚜기' 이미지 형성", era:"classic", type:"brand", hook:"광고가 아니라 기업 행보 자체가 브랜드 이미지를 만든 케이스." },
   { name:"빙그레우스 캐릭터 마케팅", era:"classic", type:"brand", hook:"오래된 식품 브랜드가 세계관 캐릭터로 젊은 세대와 다시 연결된 사례." },
+  { name:"빙그레 스낵 시리즈 애니메이션 광고", era:"classic", type:"ad", hook:"제품 설명 없이 독특하고 몽환적인 애니메이션 톤 하나로 브랜드를 각인시킨 사례." },
   { name:"진로 참이슬 브랜드 변천사", era:"classic", type:"brand", hook:"수십 년간 라벨·톤이 세대에 맞춰 어떻게 바뀌어왔는지 보여주는 사례." },
   { name:"대한항공 'Excellence in Flight' 캠페인", era:"classic", type:"ad", hook:"프리미엄 항공사가 신뢰와 품격을 시각적으로 설득하는 방식." },
   { name:"카카오프렌즈 캐릭터 마케팅", era:"classic", type:"brand", hook:"메신저 기능을 캐릭터 IP 비즈니스로 확장시킨 사례." },
   { name:"포켓몬빵 재출시 마케팅", era:"classic", type:"brand", hook:"추억 마케팅이 실제 품절 대란까지 만든 뉴트로 열풍의 대표 사례." },
   { name:"버거킹 vs 맥도날드 신경전 광고", era:"classic", type:"ad", hook:"경쟁사를 직접 저격하며 화제성을 만든 대결 구도 마케팅." },
   { name:"정관장 홍삼 광고 시리즈", era:"classic", type:"ad", hook:"전통 건강식품이 세대별로 메시지를 어떻게 바꿔왔는지 보여주는 사례." },
+  { name:"동서식품 핫초코 미떼 광고", era:"classic", type:"ad", hook:"오랜 세월 반복된 CM송 한 곡이 제품명 자체를 각인시킨 장수 브랜드 광고." },
+  { name:"시몬스 침대 그리드 캠페인", era:"classic", type:"ad", hook:"정작 침대(제품)는 한 번도 보여주지 않고도 브랜드 인지도를 쌓은 역발상 광고." },
+  { name:"빙그레 바밤바 장수 브랜드 전략", era:"classic", type:"brand", hook:"수십 년째 같은 캐릭터·패키지를 유지하며 세대를 넘어 사랑받는 스테디셀러 전략." },
 
   { name:"닥터페퍼 'DPTS' 캠페인", era:"trend", type:"ad", hook:"SNS에서 자연 발생한 팬 콘텐츠를 그대로 광고로 전환한 서사 마케팅.", link:"https://www.youtube.com/watch?v=Wcua0DMG3mw" },
-  { name:"두끼아티스트 레시피 캠페인", era:"trend", type:"brand", hook:"유저가 만든 레시피 밈을 브랜드가 공식 캠페인으로 흡수한 국내 사례." },
-  { name:"디올 커스텀 드레스 제작 과정 콘텐츠", era:"trend", type:"brand", hook:"완성품이 아니라 '만들어지는 과정'을 공개해 장인정신을 증명하는 방식." },
+  { name:"두끼아티스트 레시피 캠페인", era:"trend", type:"content", hook:"유저가 만든 레시피 밈을 브랜드가 공식 캠페인으로 흡수한 국내 사례." },
+  { name:"디올 커스텀 드레스 제작 과정 콘텐츠", era:"trend", type:"content", hook:"완성품이 아니라 '만들어지는 과정'을 공개해 장인정신을 증명하는 방식." },
+  { name:"무신사 매거진 콘텐츠", era:"trend", type:"content", hook:"광고 대신 '읽을거리'로 브랜드 취향을 전달하는 온드미디어 콘텐츠 전략." },
+  { name:"오늘의집 집들이 콘텐츠", era:"trend", type:"content", hook:"유저의 실제 집 인테리어 후기를 콘텐츠화해 커머스와 자연스럽게 연결한 사례." },
   { name:"편의점 브랜드 굿즈 콜라보", era:"trend", type:"brand", hook:"다이어리·텀블러 같은 실물 굿즈로 소속감을 파는 최근 유통 전략." },
   { name:"올리브영 오프라인 매장 확장 전략", era:"trend", type:"brand", hook:"온라인이 대세인 시대에 오히려 오프라인 체험을 강화하는 역발상." },
   { name:"스타벅스 시즌 한정 굿즈 오픈런", era:"trend", type:"brand", hook:"한정판 굿즈로 '지금 아니면 못 산다'는 긴급성을 설계하는 방식." },
@@ -633,7 +681,11 @@ function alreadyAnalyzed(name){
   return ENTRIES.some(e => e.brand && (e.brand.includes(name) || name.includes(e.brand)));
 }
 function eraLabel(e){ return e === 'classic' ? '레트로 클래식' : '요즘 화제'; }
-function typeLabelPick(t){ return t === 'ad' ? '광고 위주' : '브랜드 위주'; }
+function typeLabelPick(t){
+  if(t === 'ad')      return '광고 위주';
+  if(t === 'content') return '콘텐츠 위주';
+  return '브랜드 위주';
+}
 
 let pickIndex = null;
 function pickToday(forceRandom){
@@ -679,6 +731,7 @@ let activeFilter = 'all';
 
 function typeLabel(t){
   if(t === 'ad')      return '광고분석 · 4C';
+  if(t === 'content') return '브랜드 콘텐츠 · 4C';
   if(t === 'brand')   return '브랜드분석 · 4P';
   if(t === 'brand3c') return '브랜드분석 · 3C+4P';
 }
@@ -707,7 +760,7 @@ function render(){
 }
 
 function openModal(e){
-  const isAd      = e.type === 'ad';
+  const isAd      = e.type === 'ad' || e.type === 'content';
   const isBrand   = e.type === 'brand';
   const isBrand3c = e.type === 'brand3c';
   let analysisHTML = '';
@@ -777,14 +830,16 @@ document.getElementById('filterBar').addEventListener('click', (ev) => {
 });
 
 function updateStats(){
-  const total      = ENTRIES.length;
-  const maxDay     = Math.max(...ENTRIES.map(e => e.day));
-  const adCount    = ENTRIES.filter(e => e.type === 'ad').length;
-  const brandCount = ENTRIES.filter(e => e.type === 'brand' || e.type === 'brand3c').length;
-  document.getElementById('statTotal').textContent  = total;
-  document.getElementById('statStreak').textContent = 'D+' + maxDay;
-  document.getElementById('statAd').textContent     = adCount;
-  document.getElementById('statBrand').textContent  = brandCount;
+  const total       = ENTRIES.length;
+  const maxDay      = Math.max(...ENTRIES.map(e => e.day));
+  const adCount     = ENTRIES.filter(e => e.type === 'ad').length;
+  const contentCount= ENTRIES.filter(e => e.type === 'content').length;
+  const brandCount  = ENTRIES.filter(e => e.type === 'brand' || e.type === 'brand3c').length;
+  document.getElementById('statTotal').textContent   = total;
+  document.getElementById('statStreak').textContent  = 'D+' + maxDay;
+  document.getElementById('statAd').textContent      = adCount;
+  document.getElementById('statContent').textContent = contentCount;
+  document.getElementById('statBrand').textContent   = brandCount;
   const latestDate = ENTRIES.reduce((a,b) => a.day > b.day ? a : b).date;
   document.getElementById('lastUpdated').textContent = latestDate;
 }
