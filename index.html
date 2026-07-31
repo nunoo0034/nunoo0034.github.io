@@ -895,12 +895,15 @@ function initBallpit(){
 
   const cs = getComputedStyle(document.documentElement);
   const inkColor = cs.getPropertyValue('--ink').trim() || '#1D2030';
-  const palette = [
-    cs.getPropertyValue('--lime').trim() || '#C6F136',
-    cs.getPropertyValue('--pink-deep').trim() || '#6C4CF1',
-    inkColor,
-    '#FFFFFF'
-  ];
+  const limeColor = cs.getPropertyValue('--lime').trim() || '#C6F136';
+  const purpleColor = cs.getPropertyValue('--pink-deep').trim() || '#6C4CF1';
+  // ✅ 프레임워크별 지정색: ad(광고)=잉크, content(콘텐츠)=화이트, brand(4P)=라임, brand3c(3C+4P)=바이올렛
+  const typeColor = {
+    ad: inkColor,
+    content: '#FFFFFF',
+    brand: limeColor,
+    brand3c: purpleColor
+  };
 
   let W = 0, H = 0;
   const DPR = Math.min(window.devicePixelRatio || 1, 2);
@@ -921,19 +924,21 @@ function initBallpit(){
   const balls = [];
   for(let i = 0; i < count; i++){
     const r = 9;
+    const entry = ENTRIES[i];
+    const color = entry ? (typeColor[entry.type] || inkColor) : inkColor;
     balls.push({
       x: r + Math.random() * Math.max(W - r * 2, 10),
-      y: -40 - Math.random() * (200 + i * 26),
+      y: -30 - Math.random() * (90 + i * 12),
       vx: (Math.random() - 0.5) * 1.4,
       vy: 0,
       r,
-      color: palette[i % palette.length]
+      color
     });
   }
 
-  const GRAVITY = 0.42;
-  const WALL_DAMP = 0.66;
-  const FLOOR_DAMP = 0.58;
+  const GRAVITY = 0.85;
+  const WALL_DAMP = 0.62;
+  const FLOOR_DAMP = 0.5;
   const FRICTION = 0.99;
   const REPEL_RADIUS = 55;
   const REPEL_STRENGTH = 0.55;
